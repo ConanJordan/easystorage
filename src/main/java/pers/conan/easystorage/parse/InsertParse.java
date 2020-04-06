@@ -90,7 +90,7 @@ public class InsertParse extends BaseParse {
         // 获取新增记录的列名和数据
         getInsertColAndVal(this.cols, this.values);
 
-        StringBuilder sb = new StringBuilder("insert into ");
+        StringBuilder sb = new StringBuilder("INSERT INTO ");
 
         sb.append(this.table);  // 表名
 
@@ -104,7 +104,7 @@ public class InsertParse extends BaseParse {
             }
         }
 
-        sb.append(") values (");
+        sb.append(") VALUES (");
 
         for (int i = 0; i< this.values.size(); i ++) {
             if (i == 0) {  // 第一列

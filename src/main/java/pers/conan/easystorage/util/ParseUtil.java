@@ -34,11 +34,11 @@ public class ParseUtil {
      */
     public static String editSelections(Module module, String table, boolean commaPrefix) {
         StringBuilder selection = new StringBuilder();
-        
+
         selection.append(commaPrefix ? ", " : " ");  // 逗号
         selection.append(ParseUtil.isEmpty(table) ? "" : (table + "."));  // 表名
         selection.append(module.getName());  // 字段名
-        selection.append(ParseUtil.isEmpty(module.getName()) ? "" : (" As " + module.getAlias()));  // 别名
+        selection.append(ParseUtil.isEmpty(module.getName()) ? "" : (" AS " + module.getAlias()));  // 别名
 
         return selection.toString();
     }
