@@ -1,5 +1,7 @@
 package pers.conan.easystorage.parse;
 
+import pers.conan.easystorage.util.ParseUtil;
+
 /**
  * 类：条件(查询，更新，删除)
  * @author Conan Jordan
@@ -112,6 +114,30 @@ public class Condition {
      */
     public Condition() {
 
+    }
+
+    /**
+     * 添加且条件
+     * @param andCondition
+     */
+    public void addAnd(Condition andCondition) {
+        if (ParseUtil.isEmpty(andCondition)) {  // 没有且条件
+            this.andCondition = andCondition;
+        } else {  // 有且条件
+            this.andCondition.addAnd(andCondition);
+        }
+    }
+
+    /**
+     * 添加或条件
+     * @param orCondition
+     */
+    public void addOr(Condition orCondition) {
+        if (ParseUtil.isEmpty(orCondition)) {  // 没有或条件
+            this.orCondition = orCondition;
+        } else {  // 有或条件
+            this.orCondition.addAnd(orCondition);
+        }
     }
 
 }

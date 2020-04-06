@@ -26,11 +26,35 @@ public class Module {
      */
     private DataType type;
 
+    /**
+     * 升序
+     */
+    private boolean asc = true;
+
+    /**
+     * 构造方法
+     * @param name
+     * @param alias
+     * @param value
+     * @param type
+     */
     public Module(String name, String alias, Object value, DataType type) {
         this.name = name;
         this.alias = alias;
         this.value = value;
         this.type = type;
+    }
+
+    /**
+     * 构造方法
+     * @param name
+     * @param alias
+     * @param asc
+     */
+    public Module(String name, String alias, boolean asc) {
+        this.name = name;
+        this.alias = alias;
+        this.asc = asc;
     }
 
     public String getName() {
@@ -63,5 +87,13 @@ public class Module {
 
     public void setType(DataType type) {
         this.type = type;
+    }
+
+    public boolean isAsc() {
+        return asc;
+    }
+
+    public void setAsc(boolean asc) {
+        this.asc = asc;
     }
 }
