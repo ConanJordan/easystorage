@@ -9,7 +9,7 @@ import pers.conan.easystorage.util.ParseUtil;
 public class Condition {
 
     /**
-     * 名称
+     * 名称(别名)
      */
     private String name;
 

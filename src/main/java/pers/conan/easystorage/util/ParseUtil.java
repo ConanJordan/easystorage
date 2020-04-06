@@ -56,10 +56,27 @@ public class ParseUtil {
     }
 
     // 编辑查询条件
-    public static String editConditons(Condition condtion, boolean commaPrefix) {
-        StringBuilder sb = new StringBuilder();
+    public static String editConditons(Condition condition) {
 
-        sb.append(commaPrefix ? ", " : " ");  // 逗号
+        if (ParseUtil.isEmpty(condition)) {  // 条件为空
+            return "";
+
+        }
+
+        StringBuilder sb = new StringBuilder(" ( ");  // 条件开始
+
+        sb.append(condition.getName());
+
+        switch (condition.getType()) {
+            case EQUAL:
+                sb.append(" = " + condition.getValue());
+                break;
+        }
+
+
+        sb.append(" ) ");  // 条件结束
+
+        
 
         // TODO
         return null;
