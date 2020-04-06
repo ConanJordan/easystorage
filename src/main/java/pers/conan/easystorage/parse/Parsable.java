@@ -6,7 +6,7 @@ import pers.conan.easystorage.exception.DisableToParseException;
  * 接口：可解析
  * @author Conan Jordan
  */
-public interface Parserable {
+public interface Parsable {
 
     /**
      * 解析(生成SQL语句)

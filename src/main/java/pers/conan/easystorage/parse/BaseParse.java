@@ -6,7 +6,7 @@ import pers.conan.easystorage.exception.DisableToParseException;
  * 类：基础解析器
  * @author Conan Jordan
  */
-public abstract class BaseParse implements Parserable {
+public abstract class BaseParse implements Parsable {
 
     /**
      * 解析后生成的SQL语句
