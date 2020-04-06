@@ -1,6 +1,7 @@
 package pers.conan.easystorage.util;
 
 import java.util.Collection;
+import pers.conan.easystorage.parse.Module;
 
 /**
  * 类：解析工具
@@ -22,6 +23,24 @@ public class ParseUtil {
         }
 
         return "".equals(obj.toString());
+    }
+
+    /**
+     * 编辑查询项
+     * @param module
+     * @param table
+     * @param commaPrefix
+     * @return
+     */
+    public static String editSelections(Module module, String table, boolean commaPrefix) {
+        StringBuilder selection = new StringBuilder();
+        
+        selection.append(commaPrefix ? ", " : " ");  // 逗号
+        selection.append(ParseUtil.isEmpty(table) ? "" : (table + "."));  // 表名
+        selection.append(module.getName());  // 字段名
+        selection.append(ParseUtil.isEmpty(module.getName()) ? "" : (" As " + module.getAlias()));  // 别名
+
+        return selection.toString();
     }
 
 }
