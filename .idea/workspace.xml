@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="720fd28f-9a2c-49d7-af5b-9061cda1dca2" name="Default Changelist" comment="" />
+    <list default="true" id="720fd28f-9a2c-49d7-af5b-9061cda1dca2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/BaseParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/BaseParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/DataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/Module.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/Parserable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/parse/Parserable.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +24,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -27,6 +37,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1a96xSbij7OWTMtmYsTyK9yR4Kk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="flattenPackages" value="true" />
@@ -37,6 +48,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/annotation" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -49,7 +61,7 @@
       <recent name="C:\development\SRC\ideas\easystorage\src\main\java\pers\conan\easystorage\annotation" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.InsertTest">
     <configuration name="AnootationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.test.AnootationTest" />
       <module name="easystorage" />
@@ -63,8 +75,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="InsertTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.test.InsertTest" />
+      <module name="easystorage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pers.conan.easystorage.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.InsertTest" />
         <item itemvalue="Application.AnootationTest" />
       </list>
     </recent_temporary>
@@ -87,30 +113,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="452" y="95" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1586139161811" />
-    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser" timestamp="1586151737378">
+    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser" timestamp="1586155027194">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586151737378" />
+    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586155027194" />
     <state x="689" y="217" key="FileChooserDialogImpl" timestamp="1586135801318">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="689" y="217" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586135801318" />
-    <state width="1869" height="333" key="GridCell.Tab.0.bottom" timestamp="1586146366723">
+    <state width="1869" height="269" key="GridCell.Tab.0.bottom" timestamp="1586155398187">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.0.center" timestamp="1586146366723">
+    <state width="1869" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586155398187" />
+    <state width="1869" height="269" key="GridCell.Tab.0.center" timestamp="1586155398187">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.0.left" timestamp="1586146366723">
+    <state width="1869" height="269" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586155398187" />
+    <state width="1869" height="269" key="GridCell.Tab.0.left" timestamp="1586155398187">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.0.right" timestamp="1586146366723">
+    <state width="1869" height="269" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586155398187" />
+    <state width="1869" height="269" key="GridCell.Tab.0.right" timestamp="1586155398187">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
+    <state width="1869" height="269" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586155398187" />
     <state width="1869" height="333" key="GridCell.Tab.1.bottom" timestamp="1586146366723">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -143,9 +169,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="102" y="146" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1586150215953" />
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1586138256518">
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1586154425149">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586138256518" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586154425149" />
   </component>
 </project>

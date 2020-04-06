@@ -1,7 +1,9 @@
 package pers.conan.easystorage.parse;
 
+import pers.conan.easystorage.parse.exception.DisableToParseException;
+
 /**
- * 类：基础解析
+ * 类：基础解析器
  * @author Conan Jordan
  */
 public abstract class BaseParse implements Parserable {
@@ -12,15 +14,9 @@ public abstract class BaseParse implements Parserable {
     protected String sql;
 
     /**
-     * 数据库概要
-     */
-    protected String schema;
-
-
-    /**
      * 解析(生成SQL语句)
      *
      * @return
      */
-    public abstract String parse();
+    public abstract String parse() throws DisableToParseException;
 }

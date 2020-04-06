@@ -5,10 +5,10 @@ package pers.conan.easystorage.parse;
  * @author Conan Jordan
  */
 public enum DataType {
-    INTEGER,
-    DOUBLE,
-    STRING,
+
+    NUMBER,
+    TEXT,
     DATE,
-    BLOB,
     OTHER
+
 }
