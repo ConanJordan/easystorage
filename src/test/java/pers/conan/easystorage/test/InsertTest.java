@@ -3,7 +3,7 @@ package pers.conan.easystorage.test;
 import pers.conan.easystorage.parse.DataType;
 import pers.conan.easystorage.parse.InsertParse;
 import pers.conan.easystorage.parse.Module;
-import pers.conan.easystorage.parse.exception.DisableToParseException;
+import pers.conan.easystorage.exception.DisableToParseException;
 
 public class InsertTest {
 

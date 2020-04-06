@@ -1,4 +1,4 @@
-package pers.conan.easystorage.parse.exception;
+package pers.conan.easystorage.exception;
 
 /**
  * 类：无法解析异常
