@@ -35,10 +35,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/annotation" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development\SRC\ideas\easystorage\src\main\java\pers\conan\easystorage\annotation" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="AnootationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -122,6 +128,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="337" y="77" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1586139177307" />
+    <state x="533" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1586150196958">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="533" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586150196958" />
+    <state x="102" y="146" key="new project wizard" timestamp="1586150215953">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="102" y="146" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1586150215953" />
     <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1586138256518">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
