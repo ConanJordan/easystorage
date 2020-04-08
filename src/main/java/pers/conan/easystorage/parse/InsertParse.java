@@ -1,6 +1,6 @@
 package pers.conan.easystorage.parse;
 
-import pers.conan.easystorage.parse.exception.DisableToParseException;
+import pers.conan.easystorage.exception.DisableToParseException;
 import pers.conan.easystorage.util.ParseUtil;
 
 import java.util.ArrayList;
