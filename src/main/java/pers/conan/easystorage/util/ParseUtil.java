@@ -88,14 +88,17 @@ public class ParseUtil {
             case EMPTY:
                 sb.append(" IS NULL ");
                 break;
+            case BETWEEN:
+                // TODO
+                break;
         }
 
-        if (isEmpty(condition.getAndCondition()) == false) {
-            sb.append(" AND ");
-        }
+        if (isEmpty(condition.getAndCondition()) == false) {  // 有且条件
+            sb.append(" AND " + editCondition(condition.getAndCondition()));
+         }
 
-        if (isEmpty(condition.getOrCondition()) == false) {
-            sb.append(" OR ");
+        if (isEmpty(condition.getOrCondition()) == false) {  // 有或条件
+            sb.append(" OR " + editCondition(condition.getOrCondition()));
         }
 
         sb.append(" ) ");  // 条件结束
