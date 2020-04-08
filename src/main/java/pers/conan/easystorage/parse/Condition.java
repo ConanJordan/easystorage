@@ -116,6 +116,14 @@ public class Condition {
 
     }
 
+    public Condition getAndCondition() {
+        return andCondition;
+    }
+
+    public Condition getOrCondition() {
+        return orCondition;
+    }
+
     /**
      * 添加且条件
      * @param andCondition

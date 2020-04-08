@@ -55,12 +55,11 @@ public class ParseUtil {
         return sb.toString();
     }
 
-    // 编辑查询条件
-    public static String editConditons(Condition condition) {
+    // 编辑条件
+    public static String editCondition(Condition condition) {
 
         if (ParseUtil.isEmpty(condition)) {  // 条件为空
             return "";
-
         }
 
         StringBuilder sb = new StringBuilder(" ( ");  // 条件开始
@@ -71,15 +70,37 @@ public class ParseUtil {
             case EQUAL:
                 sb.append(" = " + condition.getValue());
                 break;
+            case MORE:
+                sb.append(" > " + condition.getValue());
+                break;
+            case MORE_OR_EQUAL:
+                sb.append(" >= " + condition.getValue());
+                break;
+            case LESS:
+                sb.append(" < " + condition.getValue());
+                break;
+            case LESS_OR_EQUAL:
+                sb.append(" <= " + condition.getValue());
+                break;
+            case NOT_EQUAL:
+                sb.append(" <> " + condition.getValue());
+                break;
+            case EMPTY:
+                sb.append(" IS NULL ");
+                break;
         }
 
+        if (isEmpty(condition.getAndCondition()) == false) {
+            sb.append(" AND ");
+        }
+
+        if (isEmpty(condition.getOrCondition()) == false) {
+            sb.append(" OR ");
+        }
 
         sb.append(" ) ");  // 条件结束
 
-        
-
-        // TODO
-        return null;
+        return sb.toString();
 
     }
 
