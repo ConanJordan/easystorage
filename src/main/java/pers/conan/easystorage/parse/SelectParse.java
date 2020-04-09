@@ -28,6 +28,48 @@ public class SelectParse extends BaseParse {
      */
     private Sort sort;
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public List<Module> getSelections() {
+        return selections;
+    }
+
+    public void setSelections(List<Module> selections) {
+        this.selections = selections;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
+    }
+
+    public SelectParse(String table, List<Module> selections, Condition condition, Sort sort) {
+        this.table = table;
+        this.selections = selections;
+        this.condition = condition;
+        this.sort = sort;
+    }
+
+    public SelectParse() {
+    }
+
     /**
      * 解析(生成SQL语句)
      *
@@ -52,16 +94,16 @@ public class SelectParse extends BaseParse {
 
         if (ParseUtil.isEmpty(this.condition) == false) {  // 有查询条件
             sb.append(" WHERE ");
-            // TODO
+            sb.append(ParseUtil.editCondition(this.condition));  // 添加查询条件
         }
 
         if (ParseUtil.isEmpty(this.sort)) {  // 有排序条件
             sb.append(" SORTED BY ");
-            // TODO
+            sb.append(ParseUtil.editSort(this.sort));  // 添加排序条件
         }
 
+        this.sql = sb.toString();  // 编辑SQL语句
 
-
-        return null;
+        return this.sql;
     }
 }

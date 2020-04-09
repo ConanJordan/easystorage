@@ -57,6 +57,16 @@ public class Module {
         this.asc = asc;
     }
 
+    /**
+     * 构造方法
+     * @param name
+     * @param alias
+     */
+    public Module(String name, String alias) {
+        this.name = name;
+        this.alias = alias;
+    }
+
     public String getName() {
         return name;
     }
