@@ -129,7 +129,7 @@ public class Condition {
      * @param andCondition
      */
     public void addAnd(Condition andCondition) {
-        if (ParseUtil.isEmpty(andCondition)) {  // 没有且条件
+        if (ParseUtil.isEmpty(this.andCondition)) {  // 没有且条件
             this.andCondition = andCondition;
         } else {  // 有且条件
             this.andCondition.addAnd(andCondition);
@@ -141,7 +141,7 @@ public class Condition {
      * @param orCondition
      */
     public void addOr(Condition orCondition) {
-        if (ParseUtil.isEmpty(orCondition)) {  // 没有或条件
+        if (ParseUtil.isEmpty(this.orCondition)) {  // 没有或条件
             this.orCondition = orCondition;
         } else {  // 有或条件
             this.orCondition.addAnd(orCondition);
