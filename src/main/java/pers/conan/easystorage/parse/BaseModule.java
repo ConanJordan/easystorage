@@ -9,22 +9,22 @@ public class BaseModule {
     /**
      * 数据模块名称
      */
-    protected String name;
+    protected String name = "";
 
     /**
      * 数据模块的值
      */
-    protected Object value;
+    protected Object value = "";
 
     /**
      * 数据模块的别名
      */
-    protected String alias;
+    protected String alias = "";
 
     /**
      * 数据类型
      */
-    protected DataType type;
+    protected DataType type = DataType.OTHER;
 
     /**
      * 构造方法:用于初始化通用数据模块

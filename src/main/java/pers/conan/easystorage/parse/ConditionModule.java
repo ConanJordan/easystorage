@@ -9,7 +9,7 @@ public class ConditionModule extends BaseModule {
     /**
      * 条件类型
      */
-    private ConditionType conType;
+    private ConditionType conType = ConditionType.EQUAL;
 
     /**
      * 构造方法：用于初始化条件数据模块

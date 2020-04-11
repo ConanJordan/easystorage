@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import pers.conan.easystorage.parse.Condition;
+import pers.conan.easystorage.parse.ConditionModule;
 import pers.conan.easystorage.parse.Module;
 import pers.conan.easystorage.parse.Sort;
 
@@ -71,32 +72,42 @@ public class ParseUtil {
     // 编辑条件
     public static String editCondition(Condition condition) {
 
-        if (ParseUtil.isEmpty(condition)) {  // 条件为空
+        if (isEmpty(condition)) {  // 条件为空
+            return "";
+        }
+
+        if (isEmpty(condition.getConModule())) {  // 条件数据模块为空
             return "";
         }
 
         StringBuilder sb = new StringBuilder(" ( ");  // 条件开始
 
-        sb.append(condition.getName());
+        ConditionModule condModule = condition.getConModule();  // 获取条件数据模块
 
-        switch (condition.getType()) {
+        if (isBlank(condModule.getAlias()) == false) {
+            sb.append(condModule.getAlias());
+        } else {
+            sb.append(condModule.getName());
+        }
+
+        switch (condModule.getConType()) {
             case EQUAL:
-                sb.append(" = " + condition.getValue());
+                sb.append(" = " + condModule.getValue().toString());
                 break;
             case MORE:
-                sb.append(" > " + condition.getValue());
+                sb.append(" > " + condModule.getValue().toString());
                 break;
             case MORE_OR_EQUAL:
-                sb.append(" >= " + condition.getValue());
+                sb.append(" >= " + condModule.getValue().toString());
                 break;
             case LESS:
-                sb.append(" < " + condition.getValue());
+                sb.append(" < " + condModule.getValue().toString());
                 break;
             case LESS_OR_EQUAL:
-                sb.append(" <= " + condition.getValue());
+                sb.append(" <= " + condModule.getValue().toString());
                 break;
             case NOT_EQUAL:
-                sb.append(" <> " + condition.getValue());
+                sb.append(" <> " + condModule.getValue().toString());
                 break;
             case EMPTY:
                 sb.append(" IS NULL ");
@@ -118,6 +129,17 @@ public class ParseUtil {
 
         return sb.toString();
 
+    }
+
+    public static String editCondition(ConditionModule conModule) {
+        switch (conModule.getType()) {  // 判断数据类型
+            case NUMBER:
+                return conModule.toString();
+            case TEXT:
+                return "'" + conModule.getValue().toString() + "'";
+        }
+
+        return "'" + conModule.getValue().toString() + "'";
     }
 
     // 编辑排序条件
