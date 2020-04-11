@@ -24,7 +24,7 @@ public class SelectTest {
         select.setCondition(condition);  // 设置条件
 
         Sort sort = new Sort();
-        sort.addSort(null, "姓名", true);
+        sort.addSort(null, true, "姓名");
         select.setSort(sort);  // 设置排序条件
 
         System.out.println(select.parse());

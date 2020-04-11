@@ -21,7 +21,7 @@ public class Sort {
      * @param alias
      * @param asc
      */
-    public void addSort(String name, String alias, boolean asc) {
+    public void addSort(String name, boolean asc, String alias) {
         this.sorts.add(new Module(name, asc, alias));
     }
 
