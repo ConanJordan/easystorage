@@ -69,8 +69,13 @@ public class ParseUtil {
         return sb.toString();
     }
 
-    // 编辑条件
-    public static String editCondition(Condition condition) {
+    /**
+     * 编辑条件
+     * @param condition 条件
+     * @param conModules 条件数据模块集合
+     * @return
+     */
+    public static String editCondition(Condition condition, List<ConditionModule> conModules) {
 
         if (isEmpty(condition)) {  // 条件为空
             return "";
@@ -79,6 +84,8 @@ public class ParseUtil {
         if (isEmpty(condition.getConModule())) {  // 条件数据模块为空
             return "";
         }
+
+        conModules.clear();  // 清空条件数据模块集合
 
         StringBuilder sb = new StringBuilder(" ( ");  // 条件开始
 
@@ -92,54 +99,46 @@ public class ParseUtil {
 
         switch (condModule.getConType()) {
             case EQUAL:
-                sb.append(" = " + condModule.getValue().toString());
+                sb.append(" = ? " );
+                conModules.add(condModule);
                 break;
             case MORE:
-                sb.append(" > " + condModule.getValue().toString());
+                sb.append(" > ? ");
+                conModules.add(condModule);
                 break;
             case MORE_OR_EQUAL:
-                sb.append(" >= " + condModule.getValue().toString());
+                sb.append(" >= ? ");
+                conModules.add(condModule);
                 break;
             case LESS:
-                sb.append(" < " + condModule.getValue().toString());
+                sb.append(" < ? ");
+                conModules.add(condModule);
                 break;
             case LESS_OR_EQUAL:
-                sb.append(" <= " + condModule.getValue().toString());
+                sb.append(" <= ? ");
+                conModules.add(condModule);
                 break;
             case NOT_EQUAL:
-                sb.append(" <> " + condModule.getValue().toString());
+                sb.append(" <> ? ");
+                conModules.add(condModule);
                 break;
             case EMPTY:
                 sb.append(" IS NULL ");
-                break;
-            case BETWEEN:
-                // TODO
-                break;
+                break;  // 不需要放入条件数据模块集合
         }
 
         if (isEmpty(condition.getAndCondition()) == false) {  // 有且条件
-            sb.append(" AND " + editCondition(condition.getAndCondition()));
+            sb.append(" AND " + editCondition(condition.getAndCondition(), conModules));
          }
 
         if (isEmpty(condition.getOrCondition()) == false) {  // 有或条件
-            sb.append(" OR " + editCondition(condition.getOrCondition()));
+            sb.append(" OR " + editCondition(condition.getOrCondition(), conModules));
         }
 
         sb.append(" ) ");  // 条件结束
 
         return sb.toString();
 
-    }
-
-    public static String editCondition(ConditionModule conModule) {
-        switch (conModule.getType()) {  // 判断数据类型
-            case NUMBER:
-                return conModule.toString();
-            case TEXT:
-                return "'" + conModule.getValue().toString() + "'";
-        }
-
-        return "'" + conModule.getValue().toString() + "'";
     }
 
     // 编辑排序条件

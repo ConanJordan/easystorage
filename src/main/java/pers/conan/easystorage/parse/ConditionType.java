@@ -44,11 +44,6 @@ public enum ConditionType {
     /**
      * 存在于
      */
-    EXIST,
-
-    /**
-     * 大于等于……且小于等于……
-     */
-    BETWEEN
+    EXIST
 
 }
