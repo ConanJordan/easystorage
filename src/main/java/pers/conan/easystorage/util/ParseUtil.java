@@ -30,6 +30,19 @@ public class ParseUtil {
     }
 
     /**
+     * 判断字符串是否是空白字符
+     * @param str
+     * @return
+     */
+    public static boolean isBlank(String str) {
+        if (isEmpty(str)) {  // 参数对象为空
+            return true;
+        }
+
+        return isEmpty(str.trim());
+    }
+
+    /**
      * 编辑查询项
      * @param selections
      * @param table

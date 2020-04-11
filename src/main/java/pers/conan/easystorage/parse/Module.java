@@ -27,18 +27,23 @@ public class Module {
     private DataType type;
 
     /**
+     * 条件类型
+     */
+    private ConditionType conType;
+
+    /**
      * 升序
      */
     private boolean asc = true;
 
     /**
-     * 构造方法
+     * 构造方法:用于Insert语句的插入项
      * @param name
-     * @param alias
      * @param value
      * @param type
+     * @param alias
      */
-    public Module(String name, String alias, Object value, DataType type) {
+    public Module(String name, Object value, DataType type, String alias) {
         this.name = name;
         this.alias = alias;
         this.value = value;
@@ -46,19 +51,35 @@ public class Module {
     }
 
     /**
-     * 构造方法
+     * 构造方法:用于Select语句的排序项
      * @param name
-     * @param alias
      * @param asc
+     * @param alias
      */
-    public Module(String name, String alias, boolean asc) {
+    public Module(String name, boolean asc, String alias) {
         this.name = name;
         this.alias = alias;
         this.asc = asc;
     }
 
     /**
-     * 构造方法
+     * 构造方法:用于Where后的条件项
+     * @param name
+     * @param value
+     * @param type
+     * @param conType
+     * @param alias
+     */
+    public Module(String name, Object value, DataType type, ConditionType conType, String alias) {
+        this.name = name;
+        this.alias = alias;
+        this.value = value;
+        this.type = type;
+        this.conType = conType;
+    }
+
+    /**
+     * 构造方法:初始化通用数据模块
      * @param name
      * @param alias
      */
@@ -105,5 +126,13 @@ public class Module {
 
     public void setAsc(boolean asc) {
         this.asc = asc;
+    }
+
+    public ConditionType getConType() {
+        return conType;
+    }
+
+    public void setConType(ConditionType conType) {
+        this.conType = conType;
     }
 }

@@ -22,7 +22,7 @@ public class Sort {
      * @param asc
      */
     public void addSort(String name, String alias, boolean asc) {
-        this.sorts.add(new Module(name, alias, asc));
+        this.sorts.add(new Module(name, asc, alias));
     }
 
     public List<Module> getSorts() {
