@@ -47,10 +47,14 @@ public class DeleteParse extends BaseParse {
         this.condition = condition;
     }
 
+    public List<ConditionModule> getConModules() {
+        return conModules;
+    }
+
     @Override
     public String parse() throws DisableToParseException {
 
-        if (ParseUtil.isEmpty(this.table)) {  // 表名为空
+        if (ParseUtil.isBlank(this.table)) {  // 表名为空
             throw new DisableToParseException();
         }
 
@@ -62,7 +66,7 @@ public class DeleteParse extends BaseParse {
 
         SQL.append(ParseUtil.editCondition(this.condition, this.conModules));
 
-        this.sql = SQL.toString();  // SQL语句编辑完成
+        this.sql = SQL.toString();  // SQL语句编辑完成(可用于PreparedStatement)
 
         return this.sql;
     }

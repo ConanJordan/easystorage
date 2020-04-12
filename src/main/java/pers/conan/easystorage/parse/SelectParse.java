@@ -65,6 +65,17 @@ public class SelectParse extends BaseParse {
         this.sort = sort;
     }
 
+    public List<ConditionModule> getConModules() {
+        return conModules;
+    }
+
+    /**
+     * 构造方法
+     * @param table
+     * @param selections
+     * @param condition
+     * @param sort
+     */
     public SelectParse(String table, List<BaseModule> selections, Condition condition, Sort sort) {
         this.table = table;
         this.selections = selections;
@@ -72,6 +83,9 @@ public class SelectParse extends BaseParse {
         this.sort = sort;
     }
 
+    /**
+     * 构造方法
+     */
     public SelectParse() {
     }
 
@@ -83,7 +97,7 @@ public class SelectParse extends BaseParse {
     @Override
     public String parse() throws DisableToParseException {
 
-        if (ParseUtil.isEmpty(this.table)) {  // 没有要查询的表
+        if (ParseUtil.isBlank(this.table)) {  // 没有要查询的表
             throw new DisableToParseException();
         }
 
