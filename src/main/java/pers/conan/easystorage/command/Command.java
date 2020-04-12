@@ -5,6 +5,9 @@ import pers.conan.easystorage.annotation.Structure;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ * 类：SQL指令
+ */
 public abstract class Command implements Executable {
 
     /**
