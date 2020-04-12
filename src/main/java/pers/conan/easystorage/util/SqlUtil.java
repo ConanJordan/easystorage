@@ -17,7 +17,9 @@ public class SqlUtil {
     public static void close(AutoCloseable[] items) {
         for (int i = 0; i < items.length; i ++) {
             try {
-                items[i].close();
+                if (! ParseUtil.isEmpty(items[i])) {
+                    items[i].close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -32,9 +34,15 @@ public class SqlUtil {
      */
     public static void close(Connection connection, PreparedStatement prst, ResultSet rs) {
         try {
-            connection.close();
-            prst.close();
-            rs.close();
+            if (! ParseUtil.isEmpty(connection)) {
+                connection.close();
+            }
+            if (! ParseUtil.isEmpty(rs)) {
+                prst.close();
+            }
+            if (! ParseUtil.isEmpty(rs)) {
+                rs.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
