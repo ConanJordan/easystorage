@@ -19,11 +19,13 @@ public abstract class Command implements Executable {
         this.connection = connection;
     }
 
+
     /**
      * 执行(SQL语句)
      *
      * @return 查询结果集
      */
+    @Override
     public abstract List<Structure> execute();
 
     /**
@@ -31,5 +33,15 @@ public abstract class Command implements Executable {
      *
      * @return 记录条数(INSERT, UPDATE, DELETE)
      */
+    @Override
     public abstract int executeUpdate();
+
+    /**
+     * 准备
+     *
+     * @return
+     */
+    @Override
+    public abstract int prepare();
+
 }

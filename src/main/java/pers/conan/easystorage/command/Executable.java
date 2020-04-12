@@ -23,4 +23,10 @@ public interface Executable {
      */
     int executeUpdate();
 
+    /**
+     * 准备
+     * @return
+     */
+    int prepare();
+
 }
