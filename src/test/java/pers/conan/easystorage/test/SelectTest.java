@@ -14,7 +14,7 @@ public class SelectTest {
         select.setTable("student");
 
         List<Module> selections = new ArrayList<Module>();
-        selections.add(new Module("id","ID"));
+        /*selections.add(new Module("id","ID"));
         selections.add(new Module("name","姓名"));
         selections.add(new Module("gender","性别"));
         select.setSelections(selections);  // 设置查询项
@@ -25,7 +25,7 @@ public class SelectTest {
 
         Sort sort = new Sort();
         sort.addSort(null, true, "姓名");
-        select.setSort(sort);  // 设置排序条件
+        select.setSort(sort);  // 设置排序条件*/
 
         System.out.println(select.parse());
     }

@@ -23,17 +23,7 @@ public class InsertParse extends BaseParse {
     /**
      * 新增数据的模块集合
      */
-    private Set<BaseModule> modules = new HashSet<BaseModule>();
-
-    /**
-     * 新增记录的列
-     */
-    private List<String> cols = new ArrayList<String>();
-
-    /**
-     * 新增记录的值
-     */
-    private List<String> values = new ArrayList<String>();
+    private List<BaseModule> insertions = new ArrayList<BaseModule>();
 
     public String getTable() {
         return table;
@@ -43,36 +33,20 @@ public class InsertParse extends BaseParse {
         this.table = table;
     }
 
-    public Set<BaseModule> getModules() {
-        return modules;
+    public List<BaseModule> getInsertions() {
+        return insertions;
     }
 
-    public void setModules(Set<BaseModule> modules) {
-        this.modules = modules;
-    }
-
-    public List<String> getCols() {
-        return cols;
-    }
-
-    public void setCols(List<String> cols) {
-        this.cols = cols;
-    }
-
-    public List<String> getValues() {
-        return values;
-    }
-
-    public void setValues(List<String> values) {
-        this.values = values;
+    public void setInsertions(List<BaseModule> insertions) {
+        this.insertions = insertions;
     }
 
     /**
      * 添加数据模块
-     * @param module
+     * @param insertion
      */
-    public void add(BaseModule module) {
-        this.modules.add(module);
+    public void add(BaseModule insertion) {
+        this.insertions.add(insertion);
     }
 
     /**
@@ -83,75 +57,40 @@ public class InsertParse extends BaseParse {
     @Override
     public String parse() throws DisableToParseException {
 
-        if (ParseUtil.isEmpty(this.table) || ParseUtil.isEmpty(this.modules)) {
+        if (ParseUtil.isEmpty(this.table) || ParseUtil.isEmpty(this.insertions)) {
+            // 没有表名或插入项
             throw new DisableToParseException();
         }
 
         // 获取新增记录的列名和数据
-        getInsertColAndVal(this.cols, this.values);
+        //getInsertColAndVal(this.cols, this.values);
 
-        StringBuilder sb = new StringBuilder("INSERT INTO ");
+        StringBuilder SQL = new StringBuilder("INSERT INTO ");  // 开始编辑SQL语句
 
-        sb.append(this.table);  // 表名
+        SQL.append(this.table);  // 表名
 
-        sb.append(" (");
+        StringBuilder cols = new StringBuilder(" ( ");  // 插入记录的字段
+        StringBuilder values = new StringBuilder(" VALUES ( ");  // 插入记录的数据
 
-        for (int i = 0; i< this.cols.size(); i ++) {
-            if (i == 0) {  // 第一列
-                sb.append(this.cols.get(i));
+        for (int i = 0; i < this.insertions.size(); i ++) {
+            if (i == 0) {
+                cols.append(this.insertions.get(i).getName());
+                values.append(" ? ");
             } else {
-                sb.append(", " + this.cols.get(i));
+                cols.append(", " + this.insertions.get(i).getName());
+                values.append(", ? ");
             }
         }
 
-        sb.append(") VALUES (");
+        cols.append(" ) ");
+        values.append(" ) ");
 
-        for (int i = 0; i< this.values.size(); i ++) {
-            if (i == 0) {  // 第一列
-                sb.append(this.values.get(i));
-            } else {
-                sb.append(", " + this.values.get(i));
-            }
-        }
+        SQL.append(cols.toString() + values.toString());
 
-        sb.append(")");
+        this.sql = SQL.toString();  // SQL语句编辑完成(可用于PreparedStatement)
 
-        return sb.toString();
+        return this.sql;
     }
-
-    /**
-     * 获取新增记录的列名和数据
-     * @param cols
-     * @param vals
-     */
-    private void getInsertColAndVal(List<String> cols, List<String> vals) {
-        for (BaseModule module : this.modules) {
-            cols.add(module.getName());
-
-            switch (module.getType()) {
-                case NUMBER:
-                    vals.add(module.getValue().toString());
-                    break;
-
-                case TEXT :
-                    vals.add("'" +
-                            module.getValue().toString()
-                    + "'");
-                    break;
-
-                case DATE :
-                case OTHER:
-                    // TODO
-                    break;
-
-                default :
-                    vals.add(module.getValue().toString());
-                    break;
-            }
-        }
-    }
-
-
 
 
 }

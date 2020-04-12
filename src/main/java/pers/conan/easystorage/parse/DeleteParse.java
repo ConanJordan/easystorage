@@ -3,6 +3,9 @@ package pers.conan.easystorage.parse;
 import pers.conan.easystorage.exception.DisableToParseException;
 import pers.conan.easystorage.util.ParseUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DeleteParse extends BaseParse {
 
     /**
@@ -14,6 +17,11 @@ public class DeleteParse extends BaseParse {
      * 删除条件
      */
     private Condition condition;
+
+    /**
+     * 删除条件的数据模块集合
+     */
+    private List<ConditionModule> conModules = new ArrayList<ConditionModule>();
 
     public DeleteParse(String table, Condition condition) {
         this.table = table;
@@ -50,11 +58,11 @@ public class DeleteParse extends BaseParse {
             throw new DisableToParseException();
         }
 
-        StringBuilder sb = new StringBuilder("DELETE FROM " + this.table + " WHERE ");
+        StringBuilder SQL = new StringBuilder("DELETE FROM " + this.table + " WHERE ");  // 开始编辑SQL语句
 
-        sb.append(ParseUtil.editCondition(this.condition));
+        SQL.append(ParseUtil.editCondition(this.condition, this.conModules));
 
-        this.sql = sb.toString();  // 生成对应的SQL语句
+        this.sql = SQL.toString();  // SQL语句编辑完成
 
         return this.sql;
     }
