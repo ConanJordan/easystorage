@@ -3,10 +3,8 @@ package pers.conan.easystorage.util;
 import java.util.Collection;
 import java.util.List;
 
-import pers.conan.easystorage.parse.Condition;
-import pers.conan.easystorage.parse.ConditionModule;
+import pers.conan.easystorage.parse.*;
 import pers.conan.easystorage.parse.Module;
-import pers.conan.easystorage.parse.Sort;
 
 /**
  * 类：解析工具
@@ -49,11 +47,11 @@ public class ParseUtil {
      * @param table
      * @return
      */
-    public static String editSelections(List<Module> selections, String table) {
+    public static String editSelections(List<BaseModule> selections, String table) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < selections.size(); i ++) {
-            Module module = selections.get(i);
+            BaseModule module = selections.get(i);
 
             if (i == 0) {  // 没有逗号
                 sb.append(ParseUtil.isEmpty(table) ? "" : (table + "."));  // 表名

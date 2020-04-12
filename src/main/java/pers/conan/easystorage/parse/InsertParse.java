@@ -23,7 +23,7 @@ public class InsertParse extends BaseParse {
     /**
      * 新增数据的模块集合
      */
-    private Set<Module> modules = new HashSet<Module>();
+    private Set<BaseModule> modules = new HashSet<BaseModule>();
 
     /**
      * 新增记录的列
@@ -43,11 +43,11 @@ public class InsertParse extends BaseParse {
         this.table = table;
     }
 
-    public Set<Module> getModules() {
+    public Set<BaseModule> getModules() {
         return modules;
     }
 
-    public void setModules(Set<Module> modules) {
+    public void setModules(Set<BaseModule> modules) {
         this.modules = modules;
     }
 
@@ -71,7 +71,7 @@ public class InsertParse extends BaseParse {
      * 添加数据模块
      * @param module
      */
-    public void add(Module module) {
+    public void add(BaseModule module) {
         this.modules.add(module);
     }
 
@@ -125,7 +125,7 @@ public class InsertParse extends BaseParse {
      * @param vals
      */
     private void getInsertColAndVal(List<String> cols, List<String> vals) {
-        for (Module module : this.modules) {
+        for (BaseModule module : this.modules) {
             cols.add(module.getName());
 
             switch (module.getType()) {

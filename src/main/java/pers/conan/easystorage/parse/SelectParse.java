@@ -16,7 +16,7 @@ public class SelectParse extends BaseParse {
     /**
      * 查询项
      */
-    private List<Module> selections = new ArrayList<Module>();
+    private List<BaseModule> selections = new ArrayList<BaseModule>();
 
     /**
      * 查询条件
@@ -41,11 +41,11 @@ public class SelectParse extends BaseParse {
         this.table = table;
     }
 
-    public List<Module> getSelections() {
+    public List<BaseModule> getSelections() {
         return selections;
     }
 
-    public void setSelections(List<Module> selections) {
+    public void setSelections(List<BaseModule> selections) {
         this.selections = selections;
     }
 
@@ -65,7 +65,7 @@ public class SelectParse extends BaseParse {
         this.sort = sort;
     }
 
-    public SelectParse(String table, List<Module> selections, Condition condition, Sort sort) {
+    public SelectParse(String table, List<BaseModule> selections, Condition condition, Sort sort) {
         this.table = table;
         this.selections = selections;
         this.condition = condition;
