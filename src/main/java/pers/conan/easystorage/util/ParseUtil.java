@@ -85,7 +85,7 @@ public class ParseUtil {
 
         conModules.clear();  // 清空条件数据模块集合
 
-        StringBuilder sb = new StringBuilder(" ( ");  // 条件开始
+        StringBuilder sb = new StringBuilder(" WHERE ( ");  // 条件开始
 
         ConditionModule condModule = condition.getConModule();  // 获取条件数据模块
 
@@ -139,9 +139,13 @@ public class ParseUtil {
 
     }
 
-    // 编辑排序条件
+    /**
+     * 编辑排序条件
+     * @param sort
+     * @return
+     */
     public static String editSort(Sort sort) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder SORT = new StringBuilder(" ORDER BY ");  // 开始编辑SQL语句
 
         for (int i = 0; i < sort.getSorts().size(); i ++) {
 
@@ -149,20 +153,39 @@ public class ParseUtil {
 
             if (i == 0) {  // 没有逗号
                 if (ParseUtil.isEmpty(module.getAlias())) {  // 有别名，别名优先
-                    sb.append(module.getAlias() + (module.isAsc() ? " ASC " : " DESC "));
+                    SORT.append(module.getAlias() + (module.isAsc() ? " ASC " : " DESC "));
                 } else {  // 没有别名
-                    sb.append(module.getName() + (module.isAsc() ? " ASC " : " DESC "));
+                    SORT.append(module.getName() + (module.isAsc() ? " ASC " : " DESC "));
                 }
             } else {  // 有逗号
                 if (ParseUtil.isEmpty(module.getAlias())) {  // 有别名，别名优先
-                    sb.append(" , " + module.getAlias() + (module.isAsc() ? " ASC " : " DESC "));
+                    SORT.append(" , " + module.getAlias() + (module.isAsc() ? " ASC " : " DESC "));
                 } else {  // 没有别名
-                    sb.append(" , " + module.getName() + (module.isAsc() ? " ASC " : " DESC "));
+                    SORT.append(" , " + module.getName() + (module.isAsc() ? " ASC " : " DESC "));
                 }
             }
         }
 
-        return sb.toString();
+        return SORT.toString();
+    }
+
+    /**
+     * 编辑更新项目
+     * @param updates
+     * @return
+     */
+    public static String editUpdates(List<BaseModule> updates) {
+        StringBuilder UPDATE = new StringBuilder(" SET ");  // 开始编辑SQL语句
+
+        for (int i = 0; i < updates.size(); i ++) {
+            if (i == 0) {  // 没有逗号
+                UPDATE.append(updates.get(i).getName() + " = ?");
+            } else {  // 有逗号
+                UPDATE .append("," + updates.get(i).getName() + " = ?");
+            }
+        }
+
+        return UPDATE.toString();
     }
 
 }

@@ -98,12 +98,10 @@ public class SelectParse extends BaseParse {
         SQL.append(" FROM " + this.table);  // 查询的表
 
         if (ParseUtil.isEmpty(this.condition) == false) {  // 有查询条件
-            SQL.append(" WHERE ");
             SQL.append(ParseUtil.editCondition(this.condition, this.conModules));  // 添加查询条件
         }
 
         if (ParseUtil.isEmpty(this.sort)) {  // 有排序条件
-            SQL.append(" SORTED BY ");
             SQL.append(ParseUtil.editSort(this.sort));  // 添加排序条件
         }
 
