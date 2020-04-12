@@ -28,6 +28,11 @@ public class SelectParse extends BaseParse {
      */
     private Sort sort;
 
+    /**
+     * 条件数据模块集合
+     */
+    private List<ConditionModule> conModules = new ArrayList<ConditionModule>();
+
     public String getTable() {
         return table;
     }
@@ -94,7 +99,7 @@ public class SelectParse extends BaseParse {
 
         if (ParseUtil.isEmpty(this.condition) == false) {  // 有查询条件
             sb.append(" WHERE ");
-            sb.append(ParseUtil.editCondition(this.condition));  // 添加查询条件
+            sb.append(ParseUtil.editCondition(this.condition, this.conModules));  // 添加查询条件
         }
 
         if (ParseUtil.isEmpty(this.sort)) {  // 有排序条件
