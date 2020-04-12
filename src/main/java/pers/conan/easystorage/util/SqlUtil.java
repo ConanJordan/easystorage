@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 /**
  * 类：SQL相关元素的工具类
@@ -45,6 +46,22 @@ public class SqlUtil {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 关闭对象(PreparedStatement等)
+     * @param items
+     */
+    public static void close(Collection<AutoCloseable> items) {
+        for (AutoCloseable item : items) {
+            if (! ParseUtil.isEmpty(item)) {
+                try {
+                    item.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

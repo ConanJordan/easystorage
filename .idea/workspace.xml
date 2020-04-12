@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="720fd28f-9a2c-49d7-af5b-9061cda1dca2" name="Default Changelist" comment="">
+    <list default="true" id="720fd28f-9a2c-49d7-af5b-9061cda1dca2" name="Default Changelist" comment="update : SelectParse.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/command/InsertCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/command/InsertCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/util/SqlUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/util/SqlUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,12 +34,17 @@
       <list>
         <option value="AnnotationType" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -37,7 +62,6 @@
     <option name="autoscrollFromSource" value="true" />
     <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
@@ -46,7 +70,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/pers/conan/easystorage/annotation" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
@@ -56,9 +80,22 @@
       <recent name="C:\development\SRC\ideas\easystorage\src\main\java\pers\conan\easystorage\annotation" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.InsertTest">
+  <component name="RunManager" selected="Application.DataBaseTest">
     <configuration name="AnootationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.test.AnootationTest" />
+      <module name="easystorage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pers.conan.easystorage.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataBaseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.test.DataBaseTest" />
       <module name="easystorage" />
       <extension name="coverage">
         <pattern>
@@ -83,8 +120,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ParseUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.util.ParseUtil" />
+      <module name="easystorage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pers.conan.easystorage.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SelectTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pers.conan.easystorage.test.SelectTest" />
+      <module name="easystorage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pers.conan.easystorage.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DataBaseTest" />
+        <item itemvalue="Application.ParseUtil" />
+        <item itemvalue="Application.SelectTest" />
         <item itemvalue="Application.InsertTest" />
         <item itemvalue="Application.AnootationTest" />
       </list>
@@ -101,72 +167,163 @@
       <option name="presentableId" value="Default" />
       <updated>1586135708623</updated>
     </task>
+    <task id="LOCAL-00001" summary="update : SelectParse.java">
+      <created>1586437442665</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586437442675</updated>
+    </task>
+    <task id="LOCAL-00002" summary="调整参数结构，解决编译错误。&#10;update :&#10;Sort.java&#10;InsertTest.java&#10;SelectTest.java">
+      <created>1586570011765</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1586570011765</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update : SqlUtil.java">
+      <created>1586687896423</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586687896423</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update : SelectParse.java" />
+    <MESSAGE value="调整参数结构，解决编译错误。&#10;update :&#10;Sort.java&#10;InsertTest.java&#10;SelectTest.java" />
+    <MESSAGE value="update : SqlUtil.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="update : SqlUtil.java" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="452" y="95" key="#Project_Structure" timestamp="1586139161811">
+    <state x="452" y="95" key="#Notifications" timestamp="1586435819061">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="95" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1586139161811" />
-    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser" timestamp="1586166094054">
+    <state x="452" y="95" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1586435819061" />
+    <state x="368" y="0" key="#Project_Structure" timestamp="1586686327669">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586166094054" />
+    <state x="368" y="0" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1586686327669" />
+    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser" timestamp="1586569244629">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="721" y="162" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586569244629" />
+    <state x="403" y="0" key="CommitChangelistDialog2" timestamp="1586687895880">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="403" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586687895880" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1586568034793">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586568034793" />
     <state x="689" y="217" key="FileChooserDialogImpl" timestamp="1586135801318">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="689" y="217" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586135801318" />
-    <state width="1869" height="269" key="GridCell.Tab.0.bottom" timestamp="1586155784551">
+    <state width="1863" height="256" key="GridCell.Tab.0.bottom" timestamp="1586692461879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586155784551" />
-    <state width="1869" height="269" key="GridCell.Tab.0.center" timestamp="1586155784551">
+    <state width="1863" height="256" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586692461879" />
+    <state width="1863" height="256" key="GridCell.Tab.0.center" timestamp="1586692461878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="269" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586155784551" />
-    <state width="1869" height="269" key="GridCell.Tab.0.left" timestamp="1586155784551">
+    <state width="1863" height="256" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586692461878" />
+    <state width="1863" height="256" key="GridCell.Tab.0.left" timestamp="1586692461878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="269" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586155784551" />
-    <state width="1869" height="269" key="GridCell.Tab.0.right" timestamp="1586155784551">
+    <state width="1863" height="256" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586692461878" />
+    <state width="1863" height="256" key="GridCell.Tab.0.right" timestamp="1586692461878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="269" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586155784551" />
-    <state width="1869" height="333" key="GridCell.Tab.1.bottom" timestamp="1586146366723">
+    <state width="1863" height="256" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586692461878" />
+    <state width="1863" height="316" key="GridCell.Tab.1.bottom" timestamp="1586692404263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.1.center" timestamp="1586146366723">
+    <state width="1863" height="316" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586692404263" />
+    <state width="1863" height="316" key="GridCell.Tab.1.center" timestamp="1586692404263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.1.left" timestamp="1586146366723">
+    <state width="1863" height="316" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586692404263" />
+    <state width="1863" height="316" key="GridCell.Tab.1.left" timestamp="1586692404263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
-    <state width="1869" height="333" key="GridCell.Tab.1.right" timestamp="1586146366723">
+    <state width="1863" height="316" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586692404263" />
+    <state width="1863" height="316" key="GridCell.Tab.1.right" timestamp="1586692404263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1869" height="333" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586146366723" />
+    <state width="1863" height="316" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586692404263" />
     <state x="377" y="93" key="Maven.ArtifactSearchDialog" timestamp="1586137640338">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="377" y="93" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586137640338" />
-    <state x="337" y="77" key="SettingsEditor" timestamp="1586139177307">
+    <state x="337" y="0" key="SettingsEditor" timestamp="1586686310467">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="337" y="77" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1586139177307" />
-    <state x="533" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1586160025138">
+    <state x="337" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1586686310467" />
+    <state x="452" y="188" key="Vcs.Push.Dialog.v2" timestamp="1586572298831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="533" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586160025138" />
+    <state x="452" y="188" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586572298831" />
+    <state x="533" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1586435800012">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="533" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586435800012" />
+    <state x="679" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586644472954">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="679" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586644472954" />
     <state x="102" y="146" key="new project wizard" timestamp="1586150215953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="102" y="146" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1586150215953" />
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1586154425149">
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1586567696745">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586154425149" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586567696745" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/pers/conan/easystorage/test/DataBaseTest.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../Java/jdk-10.0.1/lib/src.zip!/java.sql/java/sql/DriverManager.java</url>
+          <line>249</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../Java/jdk-10.0.1/lib/src.zip!/java.sql/java/sql/DriverManager.java</url>
+          <line>676</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../M2/Repository/org/xerial/sqlite-jdbc/3.30.1/sqlite-jdbc-3.30.1-sources.jar!/org/sqlite/JDBC.java</url>
+          <line>114</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../M2/Repository/org/xerial/sqlite-jdbc/3.30.1/sqlite-jdbc-3.30.1-sources.jar!/org/sqlite/SQLiteConnection.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
