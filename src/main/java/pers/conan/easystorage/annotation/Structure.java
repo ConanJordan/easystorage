@@ -6,11 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 注解：字段
+ * 注解：结构体
+ * @author Conan Jordan
  */
-@Target(ElementType.FIELD)  // 给属性作注解
+@Target(ElementType.TYPE)  // 给类作注解
 @Retention(RetentionPolicy.RUNTIME)  // 注解保留到运行环境里
-public @interface Column {
-    String name() default "";  // 字段名
-    String alias() default "";  // 字段别名
+public @interface Structure {
 }

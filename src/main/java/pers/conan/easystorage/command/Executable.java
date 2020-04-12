@@ -1,5 +1,7 @@
 package pers.conan.easystorage.command;
 
+import pers.conan.easystorage.annotation.Structure;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,12 @@ public interface Executable {
      * 执行(SQL语句)
      * @return 查询结果集
      */
-    List<Map<?,?>> execute();
+    List<Structure> execute();
+
+    /**
+     * 执行(SQL语句)
+     * @return 记录条数(INSERT, UPDATE, DELETE)
+     */
+    int executeUpdate();
 
 }
