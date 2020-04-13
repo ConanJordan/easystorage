@@ -27,10 +27,14 @@ public class StringUtil {
                 continue;
             }
 
-            if (! s.equals(s.toUpperCase())) {  // 驼峰节点
+            if (! s.equals(s.toUpperCase())) {  // 不是驼峰节点
                 result.append(caseSwitch(s, isUpperCase));
-            } else {
-                result.append(caseSwitch("_" + s, isUpperCase));  // 节点前面加下划线
+            } else {  // 可能是驼峰节点
+                if (s.equals(s.toLowerCase())) {  // 不是驼峰节点
+                    result.append(caseSwitch(s, isUpperCase));
+                } else {  // 是驼峰节点
+                    result.append(caseSwitch("_" + s, isUpperCase));  // 节点前面加下划线
+                }
             }
         }
 
@@ -61,11 +65,5 @@ public class StringUtil {
         }
         return str.toLowerCase();  // 小写转换
     }
-
-    public static void main(String[] args) {
-        String str = "student2020teacher";
-        System.out.println("原字符串：" + str );
-        System.out.println("大写下划线转化后：" + toUnderScore(str));
-        System.out.println("小写下划线转化后：" + toUnderScore(str, false));
-    }
+    
 }
