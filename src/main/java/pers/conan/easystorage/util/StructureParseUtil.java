@@ -2,6 +2,7 @@ package pers.conan.easystorage.util;
 
 import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.annotation.Table;
 import pers.conan.easystorage.parse.BaseModule;
 import pers.conan.easystorage.parse.DataType;
 
@@ -43,9 +44,23 @@ public class StructureParseUtil {
             modules.add(createModule(field, structure));
         }
 
-        result.put(MOUDLES, modules);
+        result.put(MOUDLES, modules);  // 数据模块
 
-        // TODO 表名
+        Table table = targetCls.getAnnotation(Table.class);
+
+        String tableName = targetCls.getName();  // 默认表名：类名
+
+        if (! ParseUtil.isEmpty(table)) {
+            if (! ParseUtil.isBlank(table.alias())) { // 注解：表的别名
+                tableName = table.alias();
+            } else {
+                if (! ParseUtil.isBlank(table.name())) {  // 注解：表名
+                    tableName = table.name();
+                }
+            }
+        }
+
+        result.put(TABLE, tableName);  // 表名
 
         return result;
 
