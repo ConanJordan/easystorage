@@ -67,6 +67,7 @@ public class InsertCommand extends Command {
      */
     @Override
     public int executeUpdate() {
+        // TODO
         return 0;
     }
 
@@ -77,6 +78,7 @@ public class InsertCommand extends Command {
      */
     @Override
     public int prepare() {
+        // TODO
         return 0;
     }
 
