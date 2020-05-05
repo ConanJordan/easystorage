@@ -25,7 +25,6 @@ public abstract class Command implements Executable {
      *
      * @return 查询结果集
      */
-    @Override
     public abstract List<Structure> execute();
 
     /**
@@ -33,7 +32,6 @@ public abstract class Command implements Executable {
      *
      * @return 记录条数(INSERT, UPDATE, DELETE)
      */
-    @Override
     public abstract int executeUpdate();
 
     /**
@@ -41,7 +39,6 @@ public abstract class Command implements Executable {
      *
      * @return
      */
-    @Override
     public abstract int prepare();
 
 }
