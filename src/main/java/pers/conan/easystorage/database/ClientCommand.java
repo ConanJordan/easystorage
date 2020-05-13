@@ -9,72 +9,72 @@ import java.util.Collection;
  */
 public class ClientCommand extends BaseCommand {
     @Override
-    public BaseCommand select(String table) {
+    public ClientCommand select(String table) {
         return null;
     }
 
     @Override
-    public BaseCommand select(String table, String condition, Object[] args) {
+    public ClientCommand select(String table, String condition, Object[] args) {
         return null;
     }
 
     @Override
-    public BaseCommand insert(String table, Structure target) {
+    public ClientCommand insert(String table, Structure target) {
         return null;
     }
 
     @Override
-    public BaseCommand insert(String table, Structure target, String seq) {
+    public ClientCommand insert(String table, Structure target, String seq) {
         return null;
     }
 
     @Override
-    public BaseCommand insert(String table, Collection<Structure> targets) {
+    public ClientCommand insert(String table, Collection<Structure> targets) {
         return null;
     }
 
     @Override
-    public BaseCommand insert(String table, Collection<Structure> targets, String seq) {
+    public ClientCommand insert(String table, Collection<Structure> targets, String seq) {
         return null;
     }
 
     @Override
-    public BaseCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel) {
+    public ClientCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel) {
         return null;
     }
 
     @Override
-    public BaseCommand update(String table, Structure target) {
+    public ClientCommand update(String table, Structure target) {
         return null;
     }
 
     @Override
-    public BaseCommand update(String table, Structure target, String condition, Object[] args) {
+    public ClientCommand update(String table, Structure target, String condition, Object[] args) {
         return null;
     }
 
     @Override
-    public BaseCommand update(String table, Collection<Structure> targets) {
+    public ClientCommand update(String table, Collection<Structure> targets) {
         return null;
     }
 
     @Override
-    public BaseCommand delete(String table, Structure target) {
+    public ClientCommand delete(String table, Structure target) {
         return null;
     }
 
     @Override
-    public BaseCommand delete(String table, Structure target, String condition, Object[] args) {
+    public ClientCommand delete(String table, Structure target, String condition, Object[] args) {
         return null;
     }
 
     @Override
-    public BaseCommand delete(String table, Collection<Structure> targets) {
+    public ClientCommand delete(String table, Collection<Structure> targets) {
         return null;
     }
 
     @Override
-    public BaseCommand Execute() {
+    public ClientCommand Execute() {
         return null;
     }
 }
