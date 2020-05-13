@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * 类：查询操作
@@ -45,6 +46,7 @@ public class SelectOperate implements Operate {
         instance.args = command.getArgs();
         instance.table = command.getTable();
         instance.sort = command.getSort();
+        instance.command = command;
 
         return instance; // 返回该实例化对象
     }
@@ -77,5 +79,7 @@ public class SelectOperate implements Operate {
             // 释放数据库资源
             Sql.close(new AutoCloseable[]{this.prst, this.rs});
         }
+
+        return this.command;
     }
 }
