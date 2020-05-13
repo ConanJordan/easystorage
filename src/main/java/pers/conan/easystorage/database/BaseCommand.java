@@ -18,6 +18,9 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
     public abstract BaseCommand select(String table, String condition, Object[] args);
 
     @Override
+    public abstract BaseCommand select(String table, String condition, String sort, Object[] args);
+
+    @Override
     public abstract BaseCommand Select(String sql, Object[] args);
 
     @Override

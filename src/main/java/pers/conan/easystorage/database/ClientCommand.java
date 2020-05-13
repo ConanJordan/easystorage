@@ -19,6 +19,11 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
+    public ClientCommand select(String table, String condition, String sort, Object[] args) {
+        return null;
+    }
+
+    @Override
     public ClientCommand Select(String sql, Object[] args) {
         return null;
     }
