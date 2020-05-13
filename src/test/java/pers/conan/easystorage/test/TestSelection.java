@@ -1,8 +1,7 @@
 package pers.conan.easystorage.test;
 
-import pers.conan.easystorage.function.Selection;
+import pers.conan.easystorage.operate.Selection;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 public class TestSelection {
