@@ -19,7 +19,13 @@ import java.util.stream.Stream;
  */
 public class EntityOperate {
 
-    // 生成实体化对象的流
+    /**
+     * 生成实体化对象的流
+     * @param resultSet
+     * @param structure
+     * @return
+     * @throws SQLException
+     */
     public static Stream<? extends Structure> createEntities(
             ResultSet resultSet,
             Class<? extends Structure> structure) throws SQLException {

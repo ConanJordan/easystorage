@@ -6,6 +6,7 @@ import pers.conan.easystorage.operate.SelectOperate;
 import java.sql.Connection;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * 类：客户端命令
@@ -22,6 +23,16 @@ public class ClientCommand extends BaseCommand {
     private String seq;
     private String table;
     private SelectOperate select;
+    private Class<? extends  Structure> structure;
+    private Stream<? extends Structure> resultStream;
+
+    public Class<? extends Structure> getStructure() {
+        return structure;
+    }
+
+    public void setResultStream(Stream<? extends Structure> resultStream) {
+        this.resultStream = resultStream;
+    }
 
     public String getSort() {
         return sort;

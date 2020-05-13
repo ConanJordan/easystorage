@@ -1,5 +1,6 @@
 package pers.conan.easystorage.operate;
 
+import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.Sql;
 
@@ -24,6 +25,8 @@ public class SelectOperate implements Operate {
     private String condition;
     private String sort;
     private Object[] args;
+    private Class<? extends  Structure> structure;
+    private Stream<? extends Structure> resultStream;
 
     /**
      * 构造方法
@@ -46,6 +49,7 @@ public class SelectOperate implements Operate {
         instance.args = command.getArgs();
         instance.table = command.getTable();
         instance.sort = command.getSort();
+        instance.structure = command.getStructure();
         instance.command = command;
 
         return instance; // 返回该实例化对象
@@ -72,6 +76,11 @@ public class SelectOperate implements Operate {
             this.rs = this.prst.executeQuery();
 
             // TODO 操作结果集
+
+            // 获取实体对象的流
+            this.resultStream = EntityOperate.createEntities(this.rs, this.structure);
+
+            this.command.setResultStream(this.resultStream);
 
         } catch (SQLException e) {
             e.printStackTrace();
