@@ -16,6 +16,8 @@ public interface Command<T> {
 
     T select(String table, String condition, Object[] args);
 
+    T Select(String sql, Object[] args);
+
     T insert(String table, Structure target);
 
     T insert(String table, Structure target, String seq);
