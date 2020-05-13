@@ -1,9 +1,15 @@
 package pers.conan.easystorage.function;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 
+/**
+ * 类：查询项
+ * @param <T>
+ * @param <R>
+ *
+ * @author Conan
+ */
 public class Selection<T, R> {
 
     /**
