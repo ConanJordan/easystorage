@@ -10,32 +10,32 @@ import java.util.List;
  *
  * @author Conan
  */
-public interface Command {
+public interface Command<T> {
 
-    void select(String table);
+    T select(String table);
 
-    void select(String table, String condition, Object[] args);
+    T select(String table, String condition, Object[] args);
 
-    void insert(String table, Structure target);
+    T insert(String table, Structure target);
 
-    void insert(String table, Structure target, String seq);
+    T insert(String table, Structure target, String seq);
 
-    void insert(String table, Collection<Structure> targets);
+    T insert(String table, Collection<Structure> targets);
 
-    void insert(String table, Collection<Structure> targets, String seq);
+    T insert(String table, Collection<Structure> targets, String seq);
 
-    void insert(String table, Collection<Structure> targets, String seq, boolean isParallel);
+    T insert(String table, Collection<Structure> targets, String seq, boolean isParallel);
 
-    void update(String table, Structure target);
+    T update(String table, Structure target);
 
-    void update(String table, Structure target, String condition, Object[] args);
+    T update(String table, Structure target, String condition, Object[] args);
 
-    void update(String table, Collection<Structure> targets);
+    T update(String table, Collection<Structure> targets);
 
-    void delete(String table, Structure target);
+    T delete(String table, Structure target);
 
-    void delete(String table, Structure target, String condition, Object[] args);
+    T delete(String table, Structure target, String condition, Object[] args);
 
-    void delete(String table, Collection<Structure> targets);
+    T delete(String table, Collection<Structure> targets);
 
 }
