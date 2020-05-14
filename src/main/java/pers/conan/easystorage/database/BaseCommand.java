@@ -3,8 +3,6 @@ package pers.conan.easystorage.database;
 import pers.conan.easystorage.annotation.Structure;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * 类：基本命令

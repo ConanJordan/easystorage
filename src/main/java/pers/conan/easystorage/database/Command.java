@@ -3,7 +3,6 @@ package pers.conan.easystorage.database;
 import pers.conan.easystorage.annotation.Structure;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 接口：SQL命令
