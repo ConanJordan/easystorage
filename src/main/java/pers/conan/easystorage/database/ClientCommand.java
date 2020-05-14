@@ -196,7 +196,7 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand Execute() {
+    public ClientCommand execute() {
         this.select.operate();
         return this;
     }

@@ -6,5 +6,5 @@ package pers.conan.easystorage.database;
  * @author Conan
  */
 public interface Executable<T> {
-    T Execute();
+    T execute();
 }
