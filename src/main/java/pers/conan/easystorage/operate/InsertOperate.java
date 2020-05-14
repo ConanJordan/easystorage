@@ -21,6 +21,7 @@ public class InsertOperate implements Operate {
     private ResultSet rs = null;
     private String SQL = null;
     private String table = null;
+    private String seq;
     private String condition = null;
     private Object[] args = null;
     private Class<? extends Structure> structure;
@@ -49,6 +50,7 @@ public class InsertOperate implements Operate {
         instance.target = command.getTarget();
         instance.targets = command.getTargets();
         instance.table = command.getTable();
+        instance.seq = command.getSeq();
         instance.command = command;
 
         // 设置属性
@@ -58,7 +60,11 @@ public class InsertOperate implements Operate {
 
     @Override
     public void prepare() throws Exception {
+        if (this.table == null) {
+            throw new Exception("The table should not be null.");
+        }
 
+        // TODO
     }
 
     @Override
