@@ -76,7 +76,7 @@ public class SelectOperate implements Operate {
         }
     }
 
-    private ClientCommand bySql() {
+    private void bySql() {
         Objects.requireNonNull(this.SQL);  // SQL语句不能是空白
 
         try {
@@ -99,10 +99,7 @@ public class SelectOperate implements Operate {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // 释放数据库资源
-            Sql.close(new AutoCloseable[]{this.prst, this.rs});
+            // 暂时不用释放数据库资源
         }
-
-        return this.command;
     }
 }
