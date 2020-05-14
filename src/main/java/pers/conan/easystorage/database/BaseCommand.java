@@ -41,5 +41,5 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
 
     public abstract BaseCommand delete(String table, Collection<Structure> targets);
 
-    public abstract BaseCommand Execute();
+    public abstract BaseCommand execute();
 }
