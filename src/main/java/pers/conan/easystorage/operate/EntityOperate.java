@@ -8,7 +8,9 @@ import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -32,17 +34,21 @@ public class EntityOperate {
 
         Set<String> columns = getColumns(resultSet); // 获取要设置的字段
 
-        return Stream.of(resultSet)
-                .parallel()
-                .map(item ->
-                {
-                    try {
-                        return createEntity(resultSet, columns, structure);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                });
+        /*
+         * return Stream.of(resultSet) .map(item -> { try { return
+         * createEntity(resultSet, columns, structure); } catch (Exception e) {
+         * e.printStackTrace(); } return null; });
+         */
+        List<Structure> list = new ArrayList<>();
+        while(resultSet.next()) {
+            try {
+                list.add(createEntity(resultSet, columns, structure));  // 添加生成的实体对象
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list.stream();  // 返回流
     }
 
     /**
@@ -90,7 +96,15 @@ public class EntityOperate {
                         e.printStackTrace();
                     }
                 });
-
+        
+                /*
+                 * Set<Field> fields =
+                 * EntityParse.getAllFields(structure).collect(Collectors.toSet()); for (Field
+                 * field : fields) { if (columns.contains(EntityParse.getFieldColumn(field)) ==
+                 * false) { // 过滤要设置的属性 continue; } try { editEntity((Structure) instance,
+                 * field, resultSet); // 设置属性 } catch (Exception e) { e.printStackTrace(); } }
+                 */
+        
         return (Structure) instance; // 返回实体对象
 
     }

@@ -11,13 +11,13 @@ import java.util.Collection;
  */
 public abstract class BaseCommand implements Executable<BaseCommand>, Command<BaseCommand> {
 
-    public abstract BaseCommand select(String table) throws Exception;
+    public abstract BaseCommand select(String table, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand select(String table, String condition, Object[] args) throws Exception;
+    public abstract BaseCommand select(String table, String condition, Object[] args, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand select(String table, String condition, String sort, Object[] args) throws Exception;
+    public abstract BaseCommand select(String table, String condition, String sort, Object[] args, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand Select(String sql, Object[] args) throws Exception;
+    public abstract BaseCommand Select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     public abstract BaseCommand insert(String table, Structure target);
 

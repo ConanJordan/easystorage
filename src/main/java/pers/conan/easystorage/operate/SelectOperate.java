@@ -111,7 +111,7 @@ public class SelectOperate implements Operate {
             // 设置参数
             if (this.args != null) {
                 for (int i = 1; i <= this.args.length; i ++) {
-                    this.prst.setObject(i, this.args[i]);
+                    this.prst.setObject(i, this.args[i - 1]);
                 }
             }
             

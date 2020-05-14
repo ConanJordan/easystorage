@@ -16,7 +16,7 @@ public class EntityParse {
 
     // 获取目标实体类的所有属性的流
     public static Stream<Field> getAllFields(Class<? extends Structure> structure) {
-        return Stream.of(structure.getFields());
+        return Stream.of(structure.getDeclaredFields());  // 获取所有属性(private 和 public)
     }
 
     // 获取目标实体类的所有属性名称的流
@@ -28,8 +28,6 @@ public class EntityParse {
     public static String getFieldColumn(Field field) {
         return field.getAnnotation(Column.class).value();
     }
-
-    // 获取目标实体类的所有属性的set方法的流
 
     // 获取属性的set方法
     public static Method getSetMethod(Class<? extends Structure> structure, Field field) throws NoSuchMethodException {
