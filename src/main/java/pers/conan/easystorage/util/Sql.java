@@ -2,10 +2,14 @@ package pers.conan.easystorage.util;
 
 import java.util.stream.Stream;
 
+import org.apache.log4j.Logger;
+
 /**
  * 工具类:SQL
  */
 public class Sql {
+    
+    private static final Logger LOG = Logger.getLogger(Sql.class);
 
     /**
      * 释放数据库资源
@@ -15,7 +19,10 @@ public class Sql {
         Stream.of(items)
                 .forEach(item -> {
                     try {
-                        item.close();
+                        if (item != null) {
+                            item.close();
+                            LOG.debug("以下数据库资源已释放:" + item);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

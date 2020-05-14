@@ -80,15 +80,17 @@ public class SelectOperate implements Operate {
      */
     @Override
     public void prepare() throws Exception {
-        if (this.SQL == null || this.table == null) {
+        if (this.SQL == null && this.table == null) {
             throw new Exception("The sql or the table should not be null.");
         }
         
         if (this.SQL != null) {
             this.prst = this.connection.prepareStatement(this.SQL);
             // 设置参数
-            for (int i = 1; i <= this.args.length; i ++) {
-                this.prst.setObject(i, this.args[i]);
+            if (this.args != null) {
+                for (int i = 1; i <= this.args.length; i ++) {
+                    this.prst.setObject(i, this.args[i]);
+                }
             }
         } else if (this.table != null) {
             StringBuilder sql = new StringBuilder("SELECT * FROM ");
@@ -107,9 +109,12 @@ public class SelectOperate implements Operate {
             
             this.prst = this.connection.prepareStatement(this.SQL);
             // 设置参数
-            for (int i = 1; i <= this.args.length; i ++) {
-                this.prst.setObject(i, this.args[i]);
+            if (this.args != null) {
+                for (int i = 1; i <= this.args.length; i ++) {
+                    this.prst.setObject(i, this.args[i]);
+                }
             }
+            
         }
 
     }

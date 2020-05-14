@@ -81,7 +81,7 @@ public class ClientCommand extends BaseCommand {
      * @param connection
      * @return
      */
-    public ClientCommand build(Connection connection) {
+    public static ClientCommand build(Connection connection) {
         return new ClientCommand(connection);
     }
 
@@ -197,7 +197,8 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand Execute() {
-        return null;
+        this.select.operate();
+        return this;
     }
 
     public List<? extends Structure> toList() {
