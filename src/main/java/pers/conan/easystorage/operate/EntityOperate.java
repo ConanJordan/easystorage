@@ -38,7 +38,7 @@ public class EntityOperate {
                 {
                     try {
                         return createEntity(resultSet, columns, structure);
-                    } catch (NoSuchMethodException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     return null;
@@ -66,15 +66,20 @@ public class EntityOperate {
      * @param columns
      * @param structure
      * @return
+     * @throws SecurityException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      */
     public static Structure createEntity(
             ResultSet resultSet,
             Set<String> columns,
-            Class<? extends Structure>structure Class<? extends Structure> structure)
-            throws NoSuchMethodException {
+            Class<? extends Structure>structure)
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
 
         // 生成实体对象
-        Object instance = structure.getConstructor().instance;
+        Object instance = structure.getConstructor().newInstance();
 
         EntityParse.getAllFields(structure) // 获取所有属性
                 .filter(field -> columns.contains(EntityParse.getFieldColumn(field))) // 过滤要设置的属性
