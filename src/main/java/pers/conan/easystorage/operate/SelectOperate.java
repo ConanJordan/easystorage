@@ -55,9 +55,25 @@ public class SelectOperate implements Operate {
         return instance; // 返回该实例化对象
     }
 
+    /**
+     * 执行SQL操作
+     */
     @Override
-    public ClientCommand operate() {
-        return null; // TODO
+    public void operate() {
+        // 执行SQL语句
+        try {
+            this.rs = this.prst.executeQuery();
+            
+            // 获取实体对象的流
+            this.resultStream = EntityOperate.createEntities(this.rs, this.structure);
+
+            this.command.setResultStream(this.resultStream);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Sql.close(new AutoCloseable[]{this.prst, this.rs});
+        }
     }
 
     private ClientCommand bySql() {
@@ -74,8 +90,6 @@ public class SelectOperate implements Operate {
 
             // 执行SQL语句
             this.rs = this.prst.executeQuery();
-
-            // TODO 操作结果集
 
             // 获取实体对象的流
             this.resultStream = EntityOperate.createEntities(this.rs, this.structure);
