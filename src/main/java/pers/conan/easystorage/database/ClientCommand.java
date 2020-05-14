@@ -5,7 +5,9 @@ import pers.conan.easystorage.operate.SelectOperate;
 
 import java.sql.Connection;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -186,5 +188,10 @@ public class ClientCommand extends BaseCommand {
     @Override
     public ClientCommand Execute() {
         return null;
+    }
+
+    @Override
+    public List<Structure> toList() {
+        return this.resultStream.collect(Collectors.toList());
     }
 }

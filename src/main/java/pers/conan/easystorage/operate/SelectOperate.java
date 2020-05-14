@@ -76,25 +76,6 @@ public class SelectOperate implements Operate {
         }
     }
 
-    private void bySql() {
-        Objects.requireNonNull(this.SQL);  // SQL语句不能是空白
-
-        try {
-            // 准备要执行的SQL语句
-            this.prst = this.connection.prepareStatement(this.SQL);
-
-            // 设置参数
-            for (int i = 1; i <= this.args.length; i ++) {
-                this.prst.setObject(i, this.args[i]);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // 暂时不用释放数据库资源
-        }
-    }
-
     /**
      * 准备SQL语句
      */
