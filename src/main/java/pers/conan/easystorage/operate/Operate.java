@@ -7,5 +7,8 @@ package pers.conan.easystorage.operate;
  * @author Conan
  */
 public interface Operate {
+    
+    void prepare() throws Exception;
+    
     void operate();
 }

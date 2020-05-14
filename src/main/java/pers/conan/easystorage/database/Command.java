@@ -11,13 +11,13 @@ import java.util.Collection;
  */
 public interface Command<T> {
 
-    T select(String table);
+    T select(String table) throws Exception;
 
-    T select(String table, String condition, Object[] args);
+    T select(String table, String condition, Object[] args) throws Exception;
 
-    T select(String table, String condition, String sort, Object[] args);
+    T select(String table, String condition, String sort, Object[] args) throws Exception;
 
-    T Select(String sql, Object[] args);
+    T Select(String sql, Object[] args) throws Exception;
 
     T insert(String table, Structure target);
 

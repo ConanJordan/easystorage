@@ -20,11 +20,11 @@ public class SelectOperate implements Operate {
     private Connection connection = null;
     private PreparedStatement prst = null;
     private ResultSet rs = null;
-    private String SQL;
-    private String table;
-    private String condition;
-    private String sort;
-    private Object[] args;
+    private String SQL = null;
+    private String table = null;
+    private String condition = null;
+    private String sort = null;
+    private Object[] args = null;
     private Class<? extends  Structure> structure;
     private Stream<? extends Structure> resultStream;
 
@@ -88,18 +88,49 @@ public class SelectOperate implements Operate {
                 this.prst.setObject(i, this.args[i]);
             }
 
-            // 执行SQL语句
-            this.rs = this.prst.executeQuery();
-
-            // 获取实体对象的流
-            this.resultStream = EntityOperate.createEntities(this.rs, this.structure);
-
-            this.command.setResultStream(this.resultStream);
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             // 暂时不用释放数据库资源
         }
+    }
+
+    /**
+     * 准备SQL语句
+     */
+    @Override
+    public void prepare() throws Exception {
+        if (this.SQL == null || this.table == null) {
+            throw new Exception("The sql or the table should not be null.");
+        }
+        
+        if (this.SQL != null) {
+            this.prst = this.connection.prepareStatement(this.SQL);
+            // 设置参数
+            for (int i = 1; i <= this.args.length; i ++) {
+                this.prst.setObject(i, this.args[i]);
+            }
+        } else if (this.table != null) {
+            StringBuilder sql = new StringBuilder("SELECT * FROM ");
+            
+            sql.append(this.table);
+            
+            if (this.condition != null) {
+                sql.append(" WHERE ").append(this.condition);  // 设置条件
+            }
+            
+            if (this.sort != null) {
+                sql.append(" ORDER BY ").append(this.sort);  // 设置排序
+            }
+            
+            this.SQL = sql.toString();
+            
+            this.prst = this.connection.prepareStatement(this.SQL);
+            // 设置参数
+            for (int i = 1; i <= this.args.length; i ++) {
+                this.prst.setObject(i, this.args[i]);
+            }
+        }
+
     }
 }

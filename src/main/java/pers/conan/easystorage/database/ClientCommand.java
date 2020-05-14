@@ -84,23 +84,48 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand select(String table) {
-        return null;
+    public ClientCommand select(String table) throws Exception {
+        return this.select(table, null, null);
     }
 
     @Override
-    public ClientCommand select(String table, String condition, Object[] args) {
-        return null;
+    public ClientCommand select(String table, String condition, Object[] args) throws Exception {
+        return this.select(table, condition, null, args);
     }
 
     @Override
-    public ClientCommand select(String table, String condition, String sort, Object[] args) {
-        return null;
+    public ClientCommand select(String table, String condition, String sort, Object[] args) throws Exception {
+
+        // 设置属性值
+        this.table = table;
+        this.condition = condition;
+        this.sort = sort;
+        this.args = args;
+        
+        if (this.select == null) {
+            this.select = SelectOperate.build(this);
+        }
+        
+        this.select.prepare();
+        
+        return this;
+        
     }
 
     @Override
-    public ClientCommand Select(String sql, Object[] args) {
-        return null;
+    public ClientCommand Select(String sql, Object[] args) throws Exception {
+        
+        // 设置SQL语句和参数
+        this.SQL = sql;
+        this.args = args;
+
+        if (this.select == null) {
+            this.select = SelectOperate.build(this);
+        }
+        
+        this.select.prepare();
+        
+        return this;
     }
 
     @Override
