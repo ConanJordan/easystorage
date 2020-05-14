@@ -75,9 +75,19 @@ public class ClientCommand extends BaseCommand {
     public void setSelect(SelectOperate select) {
         this.select = select;
     }
+    
+    /**
+     * 外部获取实例化对象的方法
+     * @param connection
+     * @return
+     */
+    public ClientCommand build(Connection connection) {
+        return new ClientCommand(connection);
+    }
 
     /**
      * 构造方法
+     * 不对外开放
      * @param connection
      */
     private ClientCommand(Connection connection) {
@@ -190,8 +200,11 @@ public class ClientCommand extends BaseCommand {
         return null;
     }
 
-    @Override
-    public List<Structure> toList() {
+    public List<? extends Structure> toList() {
         return this.resultStream.collect(Collectors.toList());
+    }
+
+    public Stream<? extends Structure> toStream() {
+        return this.resultStream;
     }
 }

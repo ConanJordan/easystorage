@@ -41,7 +41,5 @@ public interface Command<T> {
     T delete(String table, Structure target, String condition, Object[] args);
 
     T delete(String table, Collection<Structure> targets);
-    
-    List<Structure> toList();
 
 }

@@ -3,7 +3,6 @@ package pers.conan.easystorage.operate;
 import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.stream.Stream;
@@ -39,7 +38,7 @@ public class EntityParse {
         String predictName = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
         // 获取属性类型
-        Class type = field.getType();
+        Class<?> type = field.getType();
 
         // 获取属性的set方法
         Method method = structure.getMethod(predictName, type);

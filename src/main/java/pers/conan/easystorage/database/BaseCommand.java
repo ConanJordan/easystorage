@@ -4,6 +4,7 @@ import pers.conan.easystorage.annotation.Structure;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 类：基本命令
@@ -43,6 +44,4 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
     public abstract BaseCommand delete(String table, Collection<Structure> targets);
 
     public abstract BaseCommand Execute();
-
-    public abstract List<Structure> toList();
 }
