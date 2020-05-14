@@ -1,6 +1,7 @@
 package pers.conan.easystorage.database;
 
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.operate.OperateType;
 import pers.conan.easystorage.operate.SelectOperate;
 
 import java.sql.Connection;
@@ -27,6 +28,11 @@ public class ClientCommand extends BaseCommand {
     private SelectOperate select;
     private Class<? extends  Structure> structure;
     private Stream<? extends Structure> resultStream;
+
+    /**
+     * 操作类型
+     */
+    private OperateType operateType;
 
     public Class<? extends Structure> getStructure() {
         return structure;
@@ -199,7 +205,20 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand execute() {
-        this.select.operate();
+
+        switch (this.operateType) { // 判断当前操作类型
+            case SELECT: // 查询
+                this.select.operate();
+                return this;
+
+            case INSERT: // 插入
+
+            case UPDATE: // 更新
+
+            case DELETE: // 删除
+
+        }
+
         return this;
     }
 
