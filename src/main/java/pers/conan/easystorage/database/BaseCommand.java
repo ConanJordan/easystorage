@@ -35,11 +35,11 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
 
     public abstract BaseCommand update(String table, Collection<Structure> targets);
 
-    public abstract BaseCommand delete(String table, Structure target);
+    public abstract BaseCommand delete(String table, Structure target, Class<? extends Structure> structure);
 
-    public abstract BaseCommand delete(String table, Structure target, String condition, Object[] args);
+    public abstract BaseCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure);
 
-    public abstract BaseCommand delete(String table, Collection<Structure> targets);
+    public abstract BaseCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure);
 
     public abstract BaseCommand execute();
 }

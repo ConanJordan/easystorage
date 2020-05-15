@@ -35,10 +35,10 @@ public interface Command<T> {
 
     T update(String table, Collection<Structure> targets);
 
-    T delete(String table, Structure target);
+    T delete(String table, Structure target, Class<? extends Structure> structure);
 
-    T delete(String table, Structure target, String condition, Object[] args);
+    T delete(String table, String condition, Object[] args, Class<? extends Structure> structure);
 
-    T delete(String table, Collection<Structure> targets);
+    T delete(String table, Collection<Structure> targets, Class<? extends Structure> structure);
 
 }
