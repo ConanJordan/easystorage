@@ -81,7 +81,7 @@ public class SelectOperate implements Operate {
     @Override
     public void prepare() throws Exception {
         if (this.SQL == null && this.table == null) {
-            throw new Exception("The sql or the table should not be null.");
+            throw new Exception("The sql or the table should not be empty when attempting to query from it.");
         }
         
         if (this.SQL != null) {
