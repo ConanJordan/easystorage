@@ -17,5 +17,5 @@ public interface Operate {
     /**
      * 执行SQL操作
      */
-    void operate();
+    void operate() throws Exception;
 }

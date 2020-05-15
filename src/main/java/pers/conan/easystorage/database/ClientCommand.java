@@ -5,6 +5,7 @@ import pers.conan.easystorage.operate.OperateType;
 import pers.conan.easystorage.operate.SelectOperate;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -204,7 +205,7 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand execute() {
+    public ClientCommand execute() throws SQLException {
 
         switch (this.operateType) { // 判断当前操作类型
             case SELECT: // 查询

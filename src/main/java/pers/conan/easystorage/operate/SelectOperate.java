@@ -56,9 +56,10 @@ public class SelectOperate implements Operate {
 
     /**
      * 执行SQL操作
+     * @throws SQLException 
      */
     @Override
-    public void operate() {
+    public void operate() throws SQLException {
         // 执行SQL语句
         try {
             this.rs = this.prst.executeQuery();
@@ -69,7 +70,7 @@ public class SelectOperate implements Operate {
             this.command.setResultStream(this.resultStream);
             
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             Sql.close(new AutoCloseable[]{this.prst, this.rs});
         }
@@ -89,7 +90,7 @@ public class SelectOperate implements Operate {
             // 设置参数
             if (this.args != null) {
                 for (int i = 1; i <= this.args.length; i ++) {
-                    this.prst.setObject(i, this.args[i]);
+                    this.prst.setObject(i, this.args[i - 1]);
                 }
             }
         } else if (this.table != null) {

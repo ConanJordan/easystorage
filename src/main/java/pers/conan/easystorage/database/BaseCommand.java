@@ -2,6 +2,7 @@ package pers.conan.easystorage.database;
 
 import pers.conan.easystorage.annotation.Structure;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 /**
@@ -41,5 +42,5 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
 
     public abstract BaseCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure);
 
-    public abstract BaseCommand execute();
+    public abstract BaseCommand execute() throws SQLException;
 }
