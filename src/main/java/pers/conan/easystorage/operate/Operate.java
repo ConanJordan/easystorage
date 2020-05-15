@@ -8,7 +8,14 @@ package pers.conan.easystorage.operate;
  */
 public interface Operate {
     
+    /**
+     * 准备SQL语句
+     * @throws Exception
+     */
     void prepare() throws Exception;
     
+    /**
+     * 执行SQL操作
+     */
     void operate();
 }

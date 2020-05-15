@@ -58,15 +58,21 @@ public class InsertOperate implements Operate {
         return instance; // 返回实例对象
     }
 
+    /**
+     * 准备SQL语句
+     */
     @Override
     public void prepare() throws Exception {
         if (this.table == null) {
-            throw new Exception("The table should not be null.");
+            throw new Exception("The table should not be empty when attempting to insert into it.");
         }
 
-        // TODO
+        
     }
 
+    /**
+     * 执行SQL操作
+     */
     @Override
     public void operate() {
 
