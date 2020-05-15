@@ -1,7 +1,9 @@
 package pers.conan.easystorage.operate;
 
 import pers.conan.easystorage.annotation.Column;
+import pers.conan.easystorage.annotation.PrimaryKey;
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.util.CommonUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -42,6 +44,13 @@ public class EntityParse {
         Method method = structure.getMethod(predictName, type);
 
         return method;
+    }
+    
+    // 获取目标实体类的主键的字段名称的流
+    public static Stream<String> getPkColumns(Class<? extends Structure> structure) {
+        return Stream.of(structure.getDeclaredFields()) // 获取所有属性
+               .filter(field -> !CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class))) // 过滤出作主键的属性
+               .map(field -> field.getAnnotation(Column.class).value()); // 映射成字段名称的流
     }
 
 }
