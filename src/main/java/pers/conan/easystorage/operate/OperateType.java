@@ -1,10 +1,11 @@
-package pers.conan.easystorage.command;
+package pers.conan.easystorage.operate;
 
 /**
- * 枚举：查询类型
- * @author Conan Jordan
+ * 枚举：操作类型
+ *
+ * @author Conan
  */
-public enum QueryType {
+public enum OperateType {
 
     /**
      * 查询
