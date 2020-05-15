@@ -1,14 +1,14 @@
 package pers.conan.easystorage.test;
 
-import java.util.Date;
-
 import pers.conan.easystorage.annotation.Column;
+import pers.conan.easystorage.annotation.PrimaryKey;
 import pers.conan.easystorage.annotation.Structure;
 
 
 public class Student implements Structure {
     
     @Column(value="ID")
+    @PrimaryKey
     private Integer id;
     
     @Column(value="NAME")

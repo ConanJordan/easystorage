@@ -67,6 +67,7 @@ public class InsertOperate implements Operate {
             throw new Exception("The table should not be empty when attempting to insert into it.");
         }
 
+        // TODO
         
     }
 
