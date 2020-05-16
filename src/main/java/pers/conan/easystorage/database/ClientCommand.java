@@ -152,10 +152,13 @@ public class ClientCommand extends BaseCommand {
         this.structure = structure;
         
         if (this.select == null) {
-            this.select = SelectOperate.build(this);
+            this.select = SelectOperate.build(this); // 初始化查询操作
+        } else {
+            this.select.reset(); // 重置查询操作
         }
         
         this.operateType = OperateType.SELECT;
+        this.select.setPsType(PreparedStatementType.CONDITION); // 设置预编译类型
         
         this.select.prepare();
         
@@ -172,11 +175,14 @@ public class ClientCommand extends BaseCommand {
         this.structure = structure;
 
         if (this.select == null) {
-            this.select = SelectOperate.build(this);
+            this.select = SelectOperate.build(this); // 初始化查询操作
+        } else {
+            this.select.reset(); // 重置查询操作
         }
         
         this.operateType = OperateType.SELECT;
-        
+        this.select.setPsType(PreparedStatementType.SQL); // 设置预编译类型
+
         this.select.prepare();
         
         return this;

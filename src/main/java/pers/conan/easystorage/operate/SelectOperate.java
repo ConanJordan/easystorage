@@ -26,6 +26,11 @@ public class SelectOperate implements Operate {
     private Object[] args = null;
     private Class<? extends  Structure> structure;
     private Stream<? extends Structure> resultStream;
+    private PreparedStatementType psType;
+
+    public void setPsType(PreparedStatementType psType) {
+        this.psType = psType;
+    }
 
     /**
      * 构造方法
@@ -52,6 +57,19 @@ public class SelectOperate implements Operate {
         instance.command = command;
 
         return instance; // 返回该实例化对象
+    }
+
+    /**
+     * 重置实例化对象
+     */
+    public void reset() {
+        this.connection = command.getConnection();
+        this.SQL = command.getSQL();
+        this.condition = command.getCondition();
+        this.args = command.getArgs();
+        this.table = command.getTable();
+        this.sort = command.getSort();
+        this.structure = command.getStructure();
     }
 
     /**
@@ -85,7 +103,7 @@ public class SelectOperate implements Operate {
             throw new Exception("The sql or the table should not be empty when attempting to query from it.");
         }
         
-        if (this.SQL != null) {
+        if (this.psType == PreparedStatementType.SQL) {
             this.prst = this.connection.prepareStatement(this.SQL);
             // 设置参数
             if (this.args != null) {
@@ -93,7 +111,7 @@ public class SelectOperate implements Operate {
                     this.prst.setObject(i, this.args[i - 1]);
                 }
             }
-        } else if (this.table != null) {
+        } else if (this.psType == PreparedStatementType.CONDITION) {
             StringBuilder sql = new StringBuilder("SELECT * FROM ");
             
             sql.append(this.table);
@@ -116,6 +134,8 @@ public class SelectOperate implements Operate {
                 }
             }
             
+        } else { // 未知预编译类型
+            throw new Exception();
         }
 
     }
