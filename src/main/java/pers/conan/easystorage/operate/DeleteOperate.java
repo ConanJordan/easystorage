@@ -33,6 +33,7 @@ public class DeleteOperate implements Operate {
     private Class<? extends Structure> structure;
     private long deleteCount = 0L;
     private ClientCommand command;
+    private PreparedStatementType psType;
     
     /**
      * 构造方法
@@ -40,6 +41,10 @@ public class DeleteOperate implements Operate {
      */
     private DeleteOperate() {
         
+    }
+    
+    public void setPsType(PreparedStatementType psType) {
+        this.psType = psType;
     }
     
     /**
