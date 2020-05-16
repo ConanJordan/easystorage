@@ -4,10 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
+import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
+
+import static java.util.stream.Collectors.*;
+
+import java.lang.reflect.Field;
 
 /**
  * 类：删除操作
@@ -115,14 +121,36 @@ public class DeleteOperate implements Operate {
     
     /**
      * 根据目标对象设置SQL语句
+     * @throws Exception
      */
-    private void byTarget() {
+    private void byTarget() throws Exception {
+        StringBuilder sql = new StringBuilder("DELETE FROM ");
+        sql.append(this.table);
+        sql.append(" WHERE ");
+        
+        List<Field> pkFields = EntityParse.getPkFields(this.structure) // 获取目标实体类的作主键的属性的流
+                               .collect(toList()); // 转换成有序列表
+        
+        for (int i = 0; i < pkFields.size(); i ++) { // 添加到WHERE条件中去
+            sql.append(pkFields.get(i).getAnnotation(Column.class).value())
+               .append(" = ? AND ");
+        }
+        
+        this.SQL = sql.substring(0, sql.length() - 4);
+        
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 设置参数
+        for (int i = 1; i <= pkFields.size(); i ++) {
+            this.prst.setObject(i + 1, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), this.target));
+        }
         
     }
     
     /**
      * 根据目标对象集合设置SQL语句
      */
+    @SuppressWarnings("unused")
     private void byTargets() {
         
     }
