@@ -55,6 +55,19 @@ public class SelectOperate implements Operate {
     }
 
     /**
+     * 重置实例化对象
+     */
+    public void reset() {
+        this.connection = command.getConnection();
+        this.SQL = command.getSQL();
+        this.condition = command.getCondition();
+        this.args = command.getArgs();
+        this.table = command.getTable();
+        this.sort = command.getSort();
+        this.structure = command.getStructure();
+    }
+
+    /**
      * 执行SQL操作
      * @throws SQLException 
      */
