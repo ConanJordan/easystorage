@@ -69,7 +69,15 @@ public class EntityParse {
     // 获取目标实体类的作主键的属性的流
     public static Stream<Field> getPkFields(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields()) // 获取所有属性
-                .filter(field -> !CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class))); // 过滤出作主键的属性
+                .filter(field ->
+                        !CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class)) && !CommonUtil.isEmpty(field.getAnnotation(Column.class))); // 过滤出作主键的属性
+    }
+
+    // 获取目标实体类的非主键的属性的流
+    public static Stream<Field> getNonPkFields(Class<? extends Structure> structure) {
+        return Stream.of(structure.getDeclaredFields())
+                .filter(field ->
+                        CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class)) && !CommonUtil.isEmpty(field.getAnnotation(Column.class)));
     }
 
     // 获取目标属性的值
