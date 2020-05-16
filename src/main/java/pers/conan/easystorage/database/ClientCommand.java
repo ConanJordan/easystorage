@@ -155,6 +155,8 @@ public class ClientCommand extends BaseCommand {
             this.select = SelectOperate.build(this);
         }
         
+        this.operateType = OperateType.SELECT;
+        
         this.select.prepare();
         
         return this;
@@ -172,6 +174,8 @@ public class ClientCommand extends BaseCommand {
         if (this.select == null) {
             this.select = SelectOperate.build(this);
         }
+        
+        this.operateType = OperateType.SELECT;
         
         this.select.prepare();
         
