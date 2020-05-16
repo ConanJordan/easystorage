@@ -188,6 +188,11 @@ public class ClientCommand extends BaseCommand {
     public ClientCommand update(String table, Collection<Structure> targets) {
         return null;
     }
+    
+    @Override
+    public ClientCommand delete(String sql, Object[] args) {
+        return null;
+    }
 
     @Override
     public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) {
@@ -230,4 +235,5 @@ public class ClientCommand extends BaseCommand {
     public Stream<? extends Structure> toStream() {
         return this.resultStream;
     }
+
 }
