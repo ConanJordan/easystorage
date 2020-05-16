@@ -55,6 +55,9 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
     public abstract BaseCommand update(String table, Collection<? extends Structure> targets) throws Exception;
 
     @Override
+    public abstract BaseCommand update(String sql, Object[] args) throws Exception;
+
+    @Override
     public abstract BaseCommand delete(String sql, Object[] args) throws Exception;
 
     @Override

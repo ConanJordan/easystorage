@@ -31,6 +31,8 @@ public interface Command<T> {
 
     T update(String table, Structure target) throws Exception;
 
+    T update(String sql, Object[] args) throws Exception;
+
     T update(String table, Structure target, String condition, Object[] args) throws Exception;
 
     T update(String table, Collection<? extends Structure> targets) throws Exception;

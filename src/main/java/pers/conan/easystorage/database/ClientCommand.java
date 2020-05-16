@@ -227,7 +227,12 @@ public class ClientCommand extends BaseCommand {
     public ClientCommand update(String table, Collection<? extends Structure> targets) {
         return null;
     }
-    
+
+    @Override
+    public ClientCommand update(String sql, Object[] args) throws Exception {
+        return null;
+    }
+
     @Override
     public ClientCommand delete(String sql, Object[] args) throws Exception {
         // 设置属性
