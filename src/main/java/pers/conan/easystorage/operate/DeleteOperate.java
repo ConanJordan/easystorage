@@ -3,6 +3,7 @@ package pers.conan.easystorage.operate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
+import pers.conan.easystorage.util.Sql;
 
 import static java.util.stream.Collectors.*;
 
@@ -31,7 +33,7 @@ public class DeleteOperate implements Operate {
     private Structure target;
     private Collection<Structure> targets;
     private Class<? extends Structure> structure;
-    private long deleteCount = 0L;
+    private int deleteCount = 0;
     private ClientCommand command;
     private PreparedStatementType psType;
     
@@ -89,11 +91,26 @@ public class DeleteOperate implements Operate {
      */
     @Override
     public void prepare() throws Exception {
-        if (CommonUtil.isEmpty(this.table)) {
-            throw new Exception("The table should not be empty when attempting to delete records from it.");
-        }
         
-        // TODO
+        switch(this.psType) { // 判断预编译类型
+            case SQL:
+                this.bySql();
+                break;
+                
+            case CONDITION:
+                this.byCondition();
+                break;
+                
+            case TARGET:
+                this.byTarget();
+                break;
+                
+            case TARGETS:
+                this.byTargets();
+                break;
+        default: // 没有预编译类型
+            throw new Exception();
+        }
     }
     
     /**
@@ -211,9 +228,24 @@ public class DeleteOperate implements Operate {
 
     /**
      * 执行SQL操作
+     * @throws SQLException 
      */
     @Override
-    public void operate() {
-
+    public void operate() throws SQLException {
+        try {
+            if (this.psType != PreparedStatementType.TARGETS) { // 不需要批量处理
+                this.deleteCount = this.prst.executeUpdate(); // 获取成功执行的记录数 
+            } else { // 需要批量处理
+                this.deleteCount = Arrays.stream(this.prst.executeBatch())
+                                .reduce(0, (acc, element) -> acc + element); // 获取成功执行的记录数       
+            }
+            
+            this.command.setResultCount(this.deleteCount); // 设置成功执行的记录数
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            // 释放数据库资源
+            Sql.close(new AutoCloseable[] {this.prst});
+        }
     }
 }

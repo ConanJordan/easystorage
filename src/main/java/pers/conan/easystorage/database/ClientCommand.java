@@ -40,8 +40,20 @@ public class ClientCommand extends BaseCommand {
      */
     private DeleteOperate delete;
     
+    /**
+     * 目标结构体的类
+     */
     private Class<? extends  Structure> structure;
+    
+    /**
+     * 目标结构体对象的流
+     */
     private Stream<? extends Structure> resultStream;
+    
+    /**
+     * 执行成功的记录数
+     */
+    private int resultCount = 0;
 
     /**
      * 操作类型
@@ -96,6 +108,10 @@ public class ClientCommand extends BaseCommand {
         this.select = select;
     }
     
+    public void setResultCount(int resultCount) {
+        this.resultCount = resultCount;
+    }
+
     /**
      * 外部获取实例化对象的方法
      * @param connection
@@ -308,6 +324,10 @@ public class ClientCommand extends BaseCommand {
 
     public Stream<? extends Structure> toStream() {
         return this.resultStream;
+    }
+    
+    public int toResultCount() {
+        return this.resultCount;
     }
 
 }
