@@ -190,22 +190,22 @@ public class ClientCommand extends BaseCommand {
     }
     
     @Override
-    public ClientCommand delete(String sql, Object[] args) {
+    public ClientCommand delete(String sql, Object[] args) throws Exception {
         return null;
     }
 
     @Override
-    public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) {
+    public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) throws Exception {
         return null;
     }
 
     @Override
-    public ClientCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure) {
+    public ClientCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure) throws Exception {
         return null;
     }
 
     @Override
-    public ClientCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure) {
+    public ClientCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure) throws Exception {
         return null;
     }
 

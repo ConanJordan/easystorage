@@ -12,37 +12,63 @@ import java.util.Collection;
  */
 public abstract class BaseCommand implements Executable<BaseCommand>, Command<BaseCommand> {
 
+    @Override
     public abstract BaseCommand select(String table, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand select(String table, String condition, Object[] args, Class<? extends Structure> structure) throws Exception;
+    @Override
+    public abstract BaseCommand select(String table, String condition, Object[] args, Class<? extends Structure> structure)
+            throws Exception;
 
-    public abstract BaseCommand select(String table, String condition, String sort, Object[] args, Class<? extends Structure> structure) throws Exception;
+    @Override
+    public abstract BaseCommand select(String table, String condition, String sort, Object[] args,
+            Class<? extends Structure> structure) throws Exception;
 
+    @Override
     public abstract BaseCommand Select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand insert(String table, Structure target, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand insert(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand insert(String table, Structure target, String seq, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand insert(String table, Structure target, String seq, Class<? extends Structure> structure)
+            throws Exception;
 
-    public abstract BaseCommand insert(String table, Collection<Structure> targets, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand insert(String table, Collection<Structure> targets, Class<? extends Structure> structure)
+            throws Exception;
 
-    public abstract BaseCommand insert(String table, Collection<Structure> targets, String seq, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand insert(String table, Collection<Structure> targets, String seq,
+            Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel,
+            Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand update(String table, Structure target);
+    @Override
+    public abstract BaseCommand update(String table, Structure target) throws Exception;
 
-    public abstract BaseCommand update(String table, Structure target, String condition, Object[] args);
+    @Override
+    public abstract BaseCommand update(String table, Structure target, String condition, Object[] args) throws Exception;
 
-    public abstract BaseCommand update(String table, Collection<Structure> targets);
-    
-    public abstract BaseCommand delete(String sql, Object[] args);
+    @Override
+    public abstract BaseCommand update(String table, Collection<Structure> targets) throws Exception;
 
-    public abstract BaseCommand delete(String table, Structure target, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand delete(String sql, Object[] args) throws Exception;
 
-    public abstract BaseCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand delete(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 
-    public abstract BaseCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure);
+    @Override
+    public abstract BaseCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure)
+            throws Exception;
 
+    @Override
+    public abstract BaseCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure)
+            throws Exception;
+
+    @Override
     public abstract BaseCommand execute() throws SQLException;
+
 }
