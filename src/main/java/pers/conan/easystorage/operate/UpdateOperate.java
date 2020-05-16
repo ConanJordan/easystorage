@@ -2,6 +2,8 @@ package pers.conan.easystorage.operate;
 
 /**
  * 类：删除操作
+ *
+ * @author Conan
  */
 public class UpdateOperate implements Operate {
 

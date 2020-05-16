@@ -224,7 +224,7 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand update(String table, Collection<Structure> targets) {
+    public ClientCommand update(String table, Collection<? extends Structure> targets) {
         return null;
     }
     
