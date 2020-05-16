@@ -158,6 +158,7 @@ public class ClientCommand extends BaseCommand {
         }
         
         this.operateType = OperateType.SELECT;
+        this.select.setPsType(PreparedStatementType.CONDITION); // 设置预编译类型
         
         this.select.prepare();
         
@@ -180,7 +181,8 @@ public class ClientCommand extends BaseCommand {
         }
         
         this.operateType = OperateType.SELECT;
-        
+        this.select.setPsType(PreparedStatementType.SQL); // 设置预编译类型
+
         this.select.prepare();
         
         return this;
