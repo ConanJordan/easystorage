@@ -7,17 +7,17 @@ import pers.conan.easystorage.annotation.Structure;
 
 public class Student implements Structure {
     
-    @Column(value="ID")
+    @Column("ID")
     @PrimaryKey
     private Integer id;
     
-    @Column(value="NAME")
+    @Column("NAME")
     private String name;
     
-    @Column(value="GENDER")
+    @Column("GENDER")
     private String gender;
     
-    @Column(value="BIRTH_DATE")
+    @Column("BIRTH_DATE")
     private String birthDate;
 
     public Integer getId() {

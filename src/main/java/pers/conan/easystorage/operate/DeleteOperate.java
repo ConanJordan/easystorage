@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
@@ -15,7 +14,6 @@ import pers.conan.easystorage.util.CommonUtil;
 import static java.util.stream.Collectors.*;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * 类：删除操作
@@ -152,6 +150,7 @@ public class DeleteOperate implements Operate {
     /**
      * 根据目标对象集合设置SQL语句
      */
+    @SuppressWarnings("unused")
     private void byTargets() {
         
     }
