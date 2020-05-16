@@ -71,6 +71,20 @@ public class DeleteOperate implements Operate {
     }
     
     /**
+     * 重置本类的实例化对象
+     */
+    public void reset() {
+        this.connection = command.getConnection();
+        this.condition = command.getCondition();
+        this.SQL = command.getSQL();
+        this.target = command.getTarget();
+        this.targets = command.getTargets();
+        this.table = command.getTable();
+        this.args = command.getArgs();
+        this.structure = command.getStructure();
+    }
+    
+    /**
      * 准备SQL语句
      */
     @Override
