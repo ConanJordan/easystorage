@@ -53,11 +53,8 @@ public class EntityParse {
         String fieldName = field.getName();
         String predictName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
-        // 获取属性类型
-        Class<?> type = field.getType();
-
         // 获取属性的get方法
-        Method method = structure.getMethod(predictName, type);
+        Method method = structure.getMethod(predictName);
 
         return method;
     }

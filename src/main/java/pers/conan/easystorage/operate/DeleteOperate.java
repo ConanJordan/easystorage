@@ -222,7 +222,7 @@ public class DeleteOperate implements Operate {
      */
     private void editArgs(List<Field> pkFields, Structure item) throws Exception {
         for (int i = 1; i <= pkFields.size(); i ++) {
-            this.prst.setObject(i + 1, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), item));
+            this.prst.setObject(i, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), item));
         }
     }
 
