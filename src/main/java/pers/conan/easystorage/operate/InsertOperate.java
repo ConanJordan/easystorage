@@ -26,7 +26,7 @@ public class InsertOperate implements Operate {
     private Object[] args = null;
     private Class<? extends Structure> structure;
     private Structure target;
-    private Collection<Structure> targets;
+    private Collection<? extends Structure> targets;
 
     /**
      * 构造方法

@@ -2,16 +2,12 @@ package pers.conan.easystorage.test;
 
 import pers.conan.easystorage.operate.Selection;
 
-import java.util.function.Function;
-
 public class TestSelection {
     public static void main(String[] args) {
         String table = "my_table";
         String column = "id";
         String alias = "";
-        Function<Integer,Integer> edit = item -> item * item;
-
-        Selection selection = new Selection(
+        Selection<Integer, Object> selection = new Selection<Integer, Object>(
                 table,
                 column,
                 alias,

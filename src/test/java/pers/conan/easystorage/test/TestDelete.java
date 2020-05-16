@@ -2,12 +2,10 @@ package pers.conan.easystorage.test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.Sql;
 
