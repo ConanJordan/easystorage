@@ -140,19 +140,54 @@ public class DeleteOperate implements Operate {
         
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
-        // 设置参数
-        for (int i = 1; i <= pkFields.size(); i ++) {
-            this.prst.setObject(i + 1, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), this.target));
-        }
+        this.editArgs(pkFields, this.target); // 设置参数
         
     }
     
     /**
      * 根据目标对象集合设置SQL语句
+     * @throws Exception 
      */
-    @SuppressWarnings("unused")
-    private void byTargets() {
+    private void byTargets() throws Exception {
         
+        StringBuilder sql = new StringBuilder("DELETE FROM ");
+        sql.append(this.table);
+        sql.append(" WHERE ");
+        
+        List<Field> pkFields = EntityParse.getPkFields(this.structure) // 获取目标实体类的作主键的属性的流
+                               .collect(toList()); // 转换成有序列表
+        
+        for (int i = 0; i < pkFields.size(); i ++) { // 添加到WHERE条件中去
+            sql.append(pkFields.get(i).getAnnotation(Column.class).value())
+               .append(" = ? AND ");
+        }
+        
+        this.SQL = sql.substring(0, sql.length() - 4);
+        
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 批量预编译
+        this.targets.stream()
+            .forEach(item -> {
+                try {
+                    this.editArgs(pkFields, item); // 设置参数
+                    this.prst.addBatch(); // 加入批处理
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        
+    }
+    
+    /**
+     * 设置参数
+     * @param pkFields
+     * @throws Exception
+     */
+    private void editArgs(List<Field> pkFields, Structure item) throws Exception {
+        for (int i = 1; i <= pkFields.size(); i ++) {
+            this.prst.setObject(i + 1, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), item));
+        }
     }
 
     /**
