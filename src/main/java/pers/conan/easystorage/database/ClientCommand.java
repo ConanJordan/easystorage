@@ -258,12 +258,11 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure) throws Exception {
+    public ClientCommand delete(String table, String condition, Object[] args) throws Exception {
         // 设置属性
         this.table = table;
         this.condition = condition;
         this.args = args;
-        this.structure = structure;
 
         if (CommonUtil.isEmpty(this.delete)) {
             this.delete = DeleteOperate.build(this); // 创建删除操作对象
