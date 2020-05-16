@@ -44,7 +44,7 @@ public class EntityOperate {
             try {
                 list.add(createEntity(resultSet, columns, structure));  // 添加生成的实体对象
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         
@@ -93,7 +93,7 @@ public class EntityOperate {
                     try {
                         editEntity((Structure) instance, field, resultSet); // 设置属性
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 });
         

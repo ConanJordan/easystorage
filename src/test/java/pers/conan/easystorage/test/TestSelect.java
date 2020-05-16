@@ -19,7 +19,7 @@ public class TestSelect {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         
-        Connection connection = crateConnection();
+        Connection connection = createConnection();
         
         LOG.debug("获取到的数据库连接是否为空：" + (connection == null)); 
         
@@ -49,7 +49,7 @@ public class TestSelect {
      * 获取数据库连接
      * @return
      */
-    private static Connection crateConnection() {
+    public static Connection createConnection() {
         
         Connection connection = null;
         

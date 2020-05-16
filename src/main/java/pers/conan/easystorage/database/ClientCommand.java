@@ -1,8 +1,11 @@
 package pers.conan.easystorage.database;
 
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.operate.DeleteOperate;
 import pers.conan.easystorage.operate.OperateType;
+import pers.conan.easystorage.operate.PreparedStatementType;
 import pers.conan.easystorage.operate.SelectOperate;
+import pers.conan.easystorage.util.CommonUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,12 +26,34 @@ public class ClientCommand extends BaseCommand {
     private String sort;
     private Object[] args;
     private Structure target;
-    private Collection<Structure> targets;
+    private Collection<? extends Structure> targets;
     private String seq;
     private String table;
+    
+    /**
+     * 查询操作
+     */
     private SelectOperate select;
+    
+    /**
+     * 删除操作
+     */
+    private DeleteOperate delete;
+    
+    /**
+     * 目标结构体的类
+     */
     private Class<? extends  Structure> structure;
+    
+    /**
+     * 目标结构体对象的流
+     */
     private Stream<? extends Structure> resultStream;
+    
+    /**
+     * 执行成功的记录数
+     */
+    private int resultCount = 0;
 
     /**
      * 操作类型
@@ -67,7 +92,7 @@ public class ClientCommand extends BaseCommand {
         return target;
     }
 
-    public Collection<Structure> getTargets() {
+    public Collection<? extends Structure> getTargets() {
         return targets;
     }
 
@@ -83,6 +108,10 @@ public class ClientCommand extends BaseCommand {
         this.select = select;
     }
     
+    public void setResultCount(int resultCount) {
+        this.resultCount = resultCount;
+    }
+
     /**
      * 外部获取实例化对象的方法
      * @param connection
@@ -126,6 +155,8 @@ public class ClientCommand extends BaseCommand {
             this.select = SelectOperate.build(this);
         }
         
+        this.operateType = OperateType.SELECT;
+        
         this.select.prepare();
         
         return this;
@@ -143,6 +174,8 @@ public class ClientCommand extends BaseCommand {
         if (this.select == null) {
             this.select = SelectOperate.build(this);
         }
+        
+        this.operateType = OperateType.SELECT;
         
         this.select.prepare();
         
@@ -188,20 +221,84 @@ public class ClientCommand extends BaseCommand {
     public ClientCommand update(String table, Collection<Structure> targets) {
         return null;
     }
-
+    
     @Override
-    public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) {
-        return null;
+    public ClientCommand delete(String sql, Object[] args) throws Exception {
+        // 设置属性
+        this.SQL = sql;
+        this.args = args;
+        
+        if (CommonUtil.isEmpty(this.delete)) {
+            this.delete = DeleteOperate.build(this); // 创建删除操作对象
+        } else {
+            this.delete.reset(); // 重置删除操作对象
+        }
+        
+        this.delete.setPsType(PreparedStatementType.SQL); // 设置预编译类型
+        this.operateType = OperateType.DELETE; // 设置操作类型
+        this.delete.prepare();
+        
+        return this;
     }
 
     @Override
-    public ClientCommand delete(String table, String condition, Object[] args, Class<? extends Structure> structure) {
-        return null;
+    public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        // 设置属性
+        this.table = table;
+        this.target = target;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.delete)) {
+            this.delete = DeleteOperate.build(this); // 创建删除操作对象
+        } else {
+            this.delete.reset(); // 重置删除操作对象
+        }
+        
+        this.delete.setPsType(PreparedStatementType.TARGET); // 设置预编译类型
+        this.operateType = OperateType.DELETE; // 设置操作类型
+        this.delete.prepare();
+        
+        return this;
     }
 
     @Override
-    public ClientCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure) {
-        return null;
+    public ClientCommand delete(String table, String condition, Object[] args) throws Exception {
+        // 设置属性
+        this.table = table;
+        this.condition = condition;
+        this.args = args;
+
+        if (CommonUtil.isEmpty(this.delete)) {
+            this.delete = DeleteOperate.build(this); // 创建删除操作对象
+        } else {
+            this.delete.reset(); // 重置删除操作对象
+        }
+        
+        this.delete.setPsType(PreparedStatementType.CONDITION); // 设置预编译类型
+        this.operateType = OperateType.DELETE; // 设置操作类型
+        this.delete.prepare();
+        
+        return this;
+    }
+
+    @Override
+    public ClientCommand delete(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception {
+        // 设置属性
+        this.table = table;
+        this.targets = targets;
+        this.structure = structure;
+
+        if (CommonUtil.isEmpty(this.delete)) {
+            this.delete = DeleteOperate.build(this); // 创建删除操作对象
+        } else {
+            this.delete.reset(); // 重置删除操作对象
+        }
+        
+        this.delete.setPsType(PreparedStatementType.CONDITION); // 设置预编译类型
+        this.operateType = OperateType.DELETE; // 设置操作类型
+        this.delete.prepare();
+        
+        return this;
     }
 
     @Override
@@ -217,7 +314,8 @@ public class ClientCommand extends BaseCommand {
             case UPDATE: // 更新
 
             case DELETE: // 删除
-
+                this.delete.operate();
+                return this;
         }
 
         return this;
@@ -230,4 +328,9 @@ public class ClientCommand extends BaseCommand {
     public Stream<? extends Structure> toStream() {
         return this.resultStream;
     }
+    
+    public int toResultCount() {
+        return this.resultCount;
+    }
+
 }

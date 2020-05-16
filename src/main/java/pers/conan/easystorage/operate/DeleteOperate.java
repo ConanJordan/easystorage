@@ -3,6 +3,7 @@ package pers.conan.easystorage.operate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
+import pers.conan.easystorage.util.Sql;
 
 import static java.util.stream.Collectors.*;
 
@@ -29,10 +31,11 @@ public class DeleteOperate implements Operate {
     private String SQL;
     private Object[] args;
     private Structure target;
-    private Collection<Structure> targets;
+    private Collection<? extends Structure> targets;
     private Class<? extends Structure> structure;
-    private long deleteCount = 0L;
+    private int deleteCount = 0;
     private ClientCommand command;
+    private PreparedStatementType psType;
     
     /**
      * 构造方法
@@ -40,6 +43,10 @@ public class DeleteOperate implements Operate {
      */
     private DeleteOperate() {
         
+    }
+    
+    public void setPsType(PreparedStatementType psType) {
+        this.psType = psType;
     }
     
     /**
@@ -66,15 +73,44 @@ public class DeleteOperate implements Operate {
     }
     
     /**
+     * 重置本类的实例化对象
+     */
+    public void reset() {
+        this.connection = command.getConnection();
+        this.condition = command.getCondition();
+        this.SQL = command.getSQL();
+        this.target = command.getTarget();
+        this.targets = command.getTargets();
+        this.table = command.getTable();
+        this.args = command.getArgs();
+        this.structure = command.getStructure();
+    }
+    
+    /**
      * 准备SQL语句
      */
     @Override
     public void prepare() throws Exception {
-        if (CommonUtil.isEmpty(this.table)) {
-            throw new Exception("The table should not be empty when attempting to delete records from it.");
-        }
         
-        // TODO
+        switch(this.psType) { // 判断预编译类型
+            case SQL:
+                this.bySql();
+                break;
+                
+            case CONDITION:
+                this.byCondition();
+                break;
+                
+            case TARGET:
+                this.byTarget();
+                break;
+                
+            case TARGETS:
+                this.byTargets();
+                break;
+        default: // 没有预编译类型
+            throw new Exception();
+        }
     }
     
     /**
@@ -140,26 +176,76 @@ public class DeleteOperate implements Operate {
         
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
-        // 设置参数
-        for (int i = 1; i <= pkFields.size(); i ++) {
-            this.prst.setObject(i + 1, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), this.target));
-        }
+        this.editArgs(pkFields, this.target); // 设置参数
         
     }
     
     /**
      * 根据目标对象集合设置SQL语句
+     * @throws Exception 
      */
-    @SuppressWarnings("unused")
-    private void byTargets() {
+    private void byTargets() throws Exception {
         
+        StringBuilder sql = new StringBuilder("DELETE FROM ");
+        sql.append(this.table);
+        sql.append(" WHERE ");
+        
+        List<Field> pkFields = EntityParse.getPkFields(this.structure) // 获取目标实体类的作主键的属性的流
+                               .collect(toList()); // 转换成有序列表
+        
+        for (int i = 0; i < pkFields.size(); i ++) { // 添加到WHERE条件中去
+            sql.append(pkFields.get(i).getAnnotation(Column.class).value())
+               .append(" = ? AND ");
+        }
+        
+        this.SQL = sql.substring(0, sql.length() - 4);
+        
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 批量预编译
+        this.targets.stream()
+            .forEach(item -> {
+                try {
+                    this.editArgs(pkFields, item); // 设置参数
+                    this.prst.addBatch(); // 加入批处理
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        
+    }
+    
+    /**
+     * 设置参数
+     * @param pkFields
+     * @throws Exception
+     */
+    private void editArgs(List<Field> pkFields, Structure item) throws Exception {
+        for (int i = 1; i <= pkFields.size(); i ++) {
+            this.prst.setObject(i, EntityParse.getFieldValue(this.structure, pkFields.get(i - 1), item));
+        }
     }
 
     /**
      * 执行SQL操作
+     * @throws SQLException 
      */
     @Override
-    public void operate() {
-
+    public void operate() throws SQLException {
+        try {
+            if (this.psType != PreparedStatementType.TARGETS) { // 不需要批量处理
+                this.deleteCount = this.prst.executeUpdate(); // 获取成功执行的记录数 
+            } else { // 需要批量处理
+                this.deleteCount = Arrays.stream(this.prst.executeBatch())
+                                .reduce(0, (acc, element) -> acc + element); // 获取成功执行的记录数       
+            }
+            
+            this.command.setResultCount(this.deleteCount); // 设置成功执行的记录数
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            // 释放数据库资源
+            Sql.close(new AutoCloseable[] {this.prst});
+        }
     }
 }
