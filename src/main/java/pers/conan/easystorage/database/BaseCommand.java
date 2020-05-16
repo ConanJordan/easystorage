@@ -64,7 +64,7 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
     public abstract BaseCommand delete(String table, String condition, Object[] args) throws Exception;
 
     @Override
-    public abstract BaseCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure)
+    public abstract BaseCommand delete(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure)
             throws Exception;
 
     @Override

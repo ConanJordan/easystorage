@@ -26,7 +26,7 @@ public class ClientCommand extends BaseCommand {
     private String sort;
     private Object[] args;
     private Structure target;
-    private Collection<Structure> targets;
+    private Collection<? extends Structure> targets;
     private String seq;
     private String table;
     
@@ -92,7 +92,7 @@ public class ClientCommand extends BaseCommand {
         return target;
     }
 
-    public Collection<Structure> getTargets() {
+    public Collection<? extends Structure> getTargets() {
         return targets;
     }
 
@@ -282,7 +282,7 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand delete(String table, Collection<Structure> targets, Class<? extends Structure> structure) throws Exception {
+    public ClientCommand delete(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception {
         // 设置属性
         this.table = table;
         this.targets = targets;

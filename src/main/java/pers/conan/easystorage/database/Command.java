@@ -41,6 +41,6 @@ public interface Command<T> {
 
     T delete(String table, String condition, Object[] args) throws Exception;
 
-    T delete(String table, Collection<Structure> targets, Class<? extends Structure> structure) throws Exception;
+    T delete(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception;
 
 }

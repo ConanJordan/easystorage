@@ -31,7 +31,7 @@ public class DeleteOperate implements Operate {
     private String SQL;
     private Object[] args;
     private Structure target;
-    private Collection<Structure> targets;
+    private Collection<? extends Structure> targets;
     private Class<? extends Structure> structure;
     private int deleteCount = 0;
     private ClientCommand command;
