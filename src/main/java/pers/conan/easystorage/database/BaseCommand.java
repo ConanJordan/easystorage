@@ -46,16 +46,16 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
             Class<? extends Structure> structure) throws Exception;
 
     @Override
-    public abstract BaseCommand update(String table, Structure target) throws Exception;
+    public abstract BaseCommand update(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 
     @Override
-    public abstract BaseCommand update(String table, Structure target, String condition, Object[] args) throws Exception;
+    public abstract BaseCommand update(String table, Structure target, String condition, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     @Override
-    public abstract BaseCommand update(String table, Collection<? extends Structure> targets) throws Exception;
+    public abstract BaseCommand update(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception;
 
     @Override
-    public abstract BaseCommand update(String sql, Object[] args) throws Exception;
+    public abstract BaseCommand update(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     @Override
     public abstract BaseCommand delete(String sql, Object[] args) throws Exception;

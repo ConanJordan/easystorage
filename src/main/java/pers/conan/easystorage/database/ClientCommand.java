@@ -214,22 +214,22 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand update(String table, Structure target) {
+    public ClientCommand update(String table, Structure target, Class<? extends Structure> structure) {
         return null;
     }
 
     @Override
-    public ClientCommand update(String table, Structure target, String condition, Object[] args) {
+    public ClientCommand update(String table, Structure target, String condition, Object[] args, Class<? extends Structure> structure) {
         return null;
     }
 
     @Override
-    public ClientCommand update(String table, Collection<? extends Structure> targets) {
+    public ClientCommand update(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) {
         return null;
     }
 
     @Override
-    public ClientCommand update(String sql, Object[] args) throws Exception {
+    public ClientCommand update(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
         return null;
     }
 
