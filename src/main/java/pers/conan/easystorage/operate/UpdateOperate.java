@@ -17,17 +17,6 @@ import java.util.List;
  * @author Conan
  */
 public final class UpdateOperate extends PreCompile implements Operate {
-
-    private Connection connection;
-    private PreparedStatement prst;
-    private String table;
-    private String SQL;
-    private String Condition;
-    private Object[] args;
-    private Class<? extends Structure> structure;
-    private Structure target;
-    private Collection<? extends Structure> targets;
-    private PreparedStatementType psType;
     
     /**
      * 目标对象的属性集合
