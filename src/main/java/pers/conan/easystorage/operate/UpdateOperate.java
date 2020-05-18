@@ -4,8 +4,6 @@ import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.util.CommonUtil;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
