@@ -78,20 +78,20 @@ public final class UpdateOperate extends PreCompile implements Operate {
     public void prepare() throws Exception {
         
         switch(this.psType) { // 判断预编译类型
-        case SQL:
-            this.bySql();
-            break;
-            
-        case TARGET:
-            this.byTarget();
-            break;
-            
-        case TARGETS:
-            this.byTargets();
-            break;
-            
-        default: // 没有预编译类型或条件预编译类型
-            throw new Exception();
+            case SQL:
+                this.bySql();
+                break;
+                
+            case TARGET:
+                this.byTarget();
+                break;
+                
+            case TARGETS:
+                this.byTargets();
+                break;
+                
+            default: // 没有预编译类型或条件预编译类型
+                throw new Exception();
         }
     }
 
