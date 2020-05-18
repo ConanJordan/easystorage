@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.database.ClientCommand;
 
 /**
  * 抽象类：预编译
@@ -42,13 +43,14 @@ public abstract class PreCompile {
     protected ResultSet rs;
     protected String table;
     protected String SQL;
-    protected String Condition;
+    protected String condition;
     protected Object[] args;
     protected Class<? extends Structure> structure;
     protected Structure target;
     protected Collection<? extends Structure> targets;
     protected PreparedStatementType psType;
     protected int resultCount = 0;
+    protected ClientCommand command;
     
     public void setPsType(PreparedStatementType psType) {
         this.psType = psType;
