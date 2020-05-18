@@ -1,7 +1,6 @@
 package pers.conan.easystorage.operate;
 
 import pers.conan.easystorage.annotation.Column;
-import pers.conan.easystorage.annotation.PrimaryKey;
 import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.util.CommonUtil;
 
@@ -63,7 +62,7 @@ public class UpdateOperate implements Operate {
         sql.append(this.table); // 表名
         sql.append(" SET ");
 
-        EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流ß
+        EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
                 .forEach(field -> {
                     sql.append(field.getAnnotation(Column.class).value());
                     sql.append(" = ?, ");
@@ -73,7 +72,7 @@ public class UpdateOperate implements Operate {
 
         sql.append(" WHERE ");
 
-        EntityParse.getPkFields(this.structure) // 获取目标实体类的非主键的属性的流ß
+        EntityParse.getPkFields(this.structure) // 获取目标实体类的非主键的属性的流
                 .forEach(field -> {
                     sql.append(field.getAnnotation(Column.class).value());
                     sql.append(" = ? AND ");
