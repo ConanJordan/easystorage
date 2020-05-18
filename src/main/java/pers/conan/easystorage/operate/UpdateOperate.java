@@ -4,6 +4,8 @@ import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.util.CommonUtil;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,8 @@ public final class UpdateOperate extends PreCompile implements Operate {
         StringBuilder sql = new StringBuilder("UPDATE ");
         sql.append(this.table); // 表名
         sql.append(" SET ");
+        
+        this.usedFields.clear(); // 清空目标对象的属性集合
 
         EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
                 .forEach(field -> {
@@ -91,7 +95,6 @@ public final class UpdateOperate extends PreCompile implements Operate {
         for (int i = 1; i <= this.usedFields.size(); i ++) { // 参数的索引从1开始
             this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), this.target));
         }
-
     }
 
     /**
@@ -99,7 +102,48 @@ public final class UpdateOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byTargets() throws Exception {
+        StringBuilder sql = new StringBuilder("UPDATE ");
+        sql.append(this.table); // 表名
+        sql.append(" SET ");
         
+        this.usedFields.clear(); // 清空目标对象的属性集合
+
+        EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
+                .forEach(field -> {
+                    sql.append(field.getAnnotation(Column.class).value());
+                    sql.append(" = ?, ");
+                    this.usedFields.add(field); // 放入目标对象的属性集合
+                });
+
+        sql.substring(0, sql.length() - 2);
+
+        sql.append(" WHERE ");
+
+        EntityParse.getPkFields(this.structure) // 获取目标实体类的主键的属性的流
+                .forEach(field -> {
+                    sql.append(field.getAnnotation(Column.class).value());
+                    sql.append(" = ? AND ");
+                    this.usedFields.add(field); // 放入目标对象的属性集合
+                });
+
+        sql.substring(0, sql.length() - 4);
+
+        this.SQL = sql.toString();
+
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 设置参数
+        this.targets.parallelStream()
+                    .forEach(item -> {
+                        for (int i = 1; i <= this.usedFields.size(); i ++) { // 参数的索引从1开始
+                            try {
+                                this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), item));
+                                this.prst.addBatch(); // 批量预编译
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            } 
+                        }
+                    });
     }
     
     /**
@@ -107,7 +151,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byCondition() throws Exception {
-        
+        // Do not need to override.
     }
 
 }
