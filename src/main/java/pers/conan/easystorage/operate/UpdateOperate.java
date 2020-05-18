@@ -1,14 +1,10 @@
 package pers.conan.easystorage.operate;
 
 import pers.conan.easystorage.annotation.Column;
-import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.util.CommonUtil;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -71,7 +67,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
                 .forEach(field -> {
                     sql.append(field.getAnnotation(Column.class).value());
                     sql.append(" = ?, ");
-                    this.usedFields.add(field);
+                    this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
         sql.substring(0, sql.length() - 2);
@@ -82,7 +78,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
                 .forEach(field -> {
                     sql.append(field.getAnnotation(Column.class).value());
                     sql.append(" = ? AND ");
-                    this.usedFields.add(field);
+                    this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
         sql.substring(0, sql.length() - 4);
@@ -92,7 +88,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
-        for (int i = 1; i <= this.usedFields.size(); i ++) {
+        for (int i = 1; i <= this.usedFields.size(); i ++) { // 参数的索引从1开始
             this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), this.target));
         }
 
