@@ -1,10 +1,7 @@
 package pers.conan.easystorage.operate;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import pers.conan.easystorage.annotation.Column;
@@ -22,20 +19,7 @@ import java.lang.reflect.Field;
  *
  * @author Conan
  */
-public class DeleteOperate implements Operate {
-    
-    private Connection connection;
-    private PreparedStatement prst = null;
-    private String table;
-    private String condition;
-    private String SQL;
-    private Object[] args;
-    private Structure target;
-    private Collection<? extends Structure> targets;
-    private Class<? extends Structure> structure;
-    private int deleteCount = 0;
-    private ClientCommand command;
-    private PreparedStatementType psType;
+public class DeleteOperate extends PreCompile implements Operate {
     
     /**
      * 构造方法
@@ -43,10 +27,6 @@ public class DeleteOperate implements Operate {
      */
     private DeleteOperate() {
         
-    }
-    
-    public void setPsType(PreparedStatementType psType) {
-        this.psType = psType;
     }
     
     /**
@@ -117,7 +97,8 @@ public class DeleteOperate implements Operate {
      * 根据条件设置SQL语句
      * @throws SQLException 
      */
-    private void byCondition() throws SQLException {
+    @Override
+    protected void byCondition() throws SQLException {
         StringBuilder sql = new StringBuilder("DELETE FROM ");
         
         sql.append(this.table);
@@ -143,7 +124,8 @@ public class DeleteOperate implements Operate {
      * 根据SQL语句设置SQL语句
      * @throws SQLException 
      */
-    private void bySql() throws SQLException {
+    @Override
+    protected void bySql() throws SQLException {
         
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
@@ -159,7 +141,8 @@ public class DeleteOperate implements Operate {
      * 根据目标对象设置SQL语句
      * @throws Exception
      */
-    private void byTarget() throws Exception {
+    @Override
+    protected void byTarget() throws Exception {
         StringBuilder sql = new StringBuilder("DELETE FROM ");
         sql.append(this.table);
         sql.append(" WHERE ");
@@ -184,7 +167,8 @@ public class DeleteOperate implements Operate {
      * 根据目标对象集合设置SQL语句
      * @throws Exception 
      */
-    private void byTargets() throws Exception {
+    @Override
+    protected void byTargets() throws Exception {
         
         StringBuilder sql = new StringBuilder("DELETE FROM ");
         sql.append(this.table);
@@ -234,13 +218,13 @@ public class DeleteOperate implements Operate {
     public void operate() throws SQLException {
         try {
             if (this.psType != PreparedStatementType.TARGETS) { // 不需要批量处理
-                this.deleteCount = this.prst.executeUpdate(); // 获取成功执行的记录数 
+                this.resultCount = this.prst.executeUpdate(); // 获取成功执行的记录数 
             } else { // 需要批量处理
-                this.deleteCount = Arrays.stream(this.prst.executeBatch())
+                this.resultCount = Arrays.stream(this.prst.executeBatch())
                                 .reduce(0, (acc, element) -> acc + element); // 获取成功执行的记录数       
             }
             
-            this.command.setResultCount(this.deleteCount); // 设置成功执行的记录数
+            this.command.setResultCount(this.resultCount); // 设置成功执行的记录数
         } catch (SQLException e) {
             throw e;
         } finally {
