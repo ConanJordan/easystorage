@@ -6,7 +6,6 @@ import pers.conan.easystorage.util.CommonUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Collection;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Collection;
  *
  * @author Conan
  */
-public class UpdateOperate implements Operate {
+public final class UpdateOperate extends PreCompile implements Operate {
 
     private Connection connection;
     private PreparedStatement prst;
@@ -26,6 +25,7 @@ public class UpdateOperate implements Operate {
     private Structure target;
     private Collection<? extends Structure> targets;
     private PreparedStatementType psType;
+    private int index;
 
 
     /**
@@ -45,7 +45,11 @@ public class UpdateOperate implements Operate {
 
     }
 
-    private void bySql() throws SQLException {
+    /**
+     * 基于SQL语句预编译
+     */
+    @Override
+    protected void bySql() throws Exception {
 
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
 
@@ -57,7 +61,11 @@ public class UpdateOperate implements Operate {
         }
     }
 
-    private void byTarget() throws SQLException {
+    /**
+     * 基于目标对象预编译
+     */
+    @Override
+    protected void byTarget() throws Exception {
         StringBuilder sql = new StringBuilder("UPDATE ");
         sql.append(this.table); // 表名
         sql.append(" SET ");
@@ -72,7 +80,7 @@ public class UpdateOperate implements Operate {
 
         sql.append(" WHERE ");
 
-        EntityParse.getPkFields(this.structure) // 获取目标实体类的非主键的属性的流
+        EntityParse.getPkFields(this.structure) // 获取目标实体类的主键的属性的流
                 .forEach(field -> {
                     sql.append(field.getAnnotation(Column.class).value());
                     sql.append(" = ? AND ");
@@ -84,7 +92,41 @@ public class UpdateOperate implements Operate {
 
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
 
-        // TODO 设置参数
+        this.index = 1; // 设置参数用的索引是从1开始的
+        EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
+                   .forEach(field-> {
+                       try {
+                        this.prst.setObject(this.index++, EntityParse.getFieldValue(this.structure, field, this.target)); // 获取属性的值，设置参数
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                   });
+        
+        EntityParse.getPkFields(this.structure) // 获取目标实体类的主键的属性的流
+                   .forEach(field -> {
+                       try {
+                           this.prst.setObject(this.index++, EntityParse.getFieldValue(this.structure, field, this.target)); // 获取属性的值，设置参数
+                       } catch (Exception e) {
+                           throw new RuntimeException(e);
+                       }
+                   });
 
     }
+
+    /**
+     * 基于目标对象集合预编译
+     */
+    @Override
+    protected void byTargets() throws Exception {
+        
+    }
+    
+    /**
+     * 基于条件预编译
+     */
+    @Override
+    protected void byCondition() throws Exception {
+        
+    }
+
 }
