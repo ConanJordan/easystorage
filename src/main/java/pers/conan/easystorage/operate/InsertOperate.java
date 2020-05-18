@@ -1,32 +1,14 @@
 package pers.conan.easystorage.operate;
 
-import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.database.ClientCommand;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Collection;
 
 /**
  * 类：插入操作
  *
  * @author Conan
  */
-public class InsertOperate implements Operate {
-
-    private ClientCommand command;
-    private Connection connection = null;
-    private PreparedStatement prst = null;
-    private ResultSet rs = null;
-    private String SQL = null;
-    private String table = null;
-    private String seq;
-    private String condition = null;
-    private Object[] args = null;
-    private Class<? extends Structure> structure;
-    private Structure target;
-    private Collection<? extends Structure> targets;
+public class InsertOperate extends PreCompile implements Operate {
 
     /**
      * 构造方法
@@ -50,7 +32,6 @@ public class InsertOperate implements Operate {
         instance.target = command.getTarget();
         instance.targets = command.getTargets();
         instance.table = command.getTable();
-        instance.seq = command.getSeq();
         instance.command = command;
 
         // 设置属性
@@ -77,5 +58,29 @@ public class InsertOperate implements Operate {
     @Override
     public void operate() {
 
+    }
+
+    @Override
+    protected void bySql() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void byCondition() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void byTarget() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void byTargets() throws Exception {
+        // TODO Auto-generated method stub
+        
     }
 }

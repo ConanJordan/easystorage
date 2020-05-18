@@ -5,6 +5,7 @@ import pers.conan.easystorage.operate.DeleteOperate;
 import pers.conan.easystorage.operate.OperateType;
 import pers.conan.easystorage.operate.PreparedStatementType;
 import pers.conan.easystorage.operate.SelectOperate;
+import pers.conan.easystorage.operate.UpdateOperate;
 import pers.conan.easystorage.util.CommonUtil;
 
 import java.sql.Connection;
@@ -39,6 +40,11 @@ public class ClientCommand extends BaseCommand {
      * 删除操作
      */
     private DeleteOperate delete;
+    
+    /**
+     * 更新操作
+     */
+    private UpdateOperate update;
     
     /**
      * 目标结构体的类
@@ -214,23 +220,70 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand update(String table, Structure target) {
-        return null;
+    public ClientCommand update(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        return this.update(table, target, null, null, structure);
     }
 
     @Override
-    public ClientCommand update(String table, Structure target, String condition, Object[] args) {
-        return null;
+    public ClientCommand update(String table, Structure target, String condition, Object[] args, Class<? extends Structure> structure) throws Exception {
+        this.table = table;
+        this.target = target;
+        this.condition = condition;
+        this.args = args;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.update)) {
+            this.update = UpdateOperate.build(this); // 初始化更新操作
+        } else {
+            this.update.reset(); // 重置更新操作
+        }
+        
+        this.operateType = OperateType.UPDATE; // 设置操作类型
+        this.update.setPsType(PreparedStatementType.TARGET); // 设置预编译类型
+        
+        this.update.prepare();
+        
+        return this;
     }
 
     @Override
-    public ClientCommand update(String table, Collection<? extends Structure> targets) {
-        return null;
+    public ClientCommand update(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception {
+        this.table = table;
+        this.targets = targets;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.update)) {
+            this.update = UpdateOperate.build(this); // 初始化更新操作
+        } else {
+            this.update.reset(); // 重置更新操作
+        }
+        
+        this.operateType = OperateType.UPDATE; // 设置操作类型
+        this.update.setPsType(PreparedStatementType.TARGETS); // 设置预编译类型
+        
+        this.update.prepare();
+        
+        return this;
     }
 
     @Override
-    public ClientCommand update(String sql, Object[] args) throws Exception {
-        return null;
+    public ClientCommand update(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
+        this.SQL = sql;
+        this.args = args;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.update)) {
+            this.update = UpdateOperate.build(this); // 初始化更新操作
+        } else {
+            this.update.reset(); // 重置更新操作
+        }
+        
+        this.operateType = OperateType.UPDATE; // 设置操作类型
+        this.update.setPsType(PreparedStatementType.SQL); // 设置预编译类型
+        
+        this.update.prepare();
+        
+        return this;
     }
 
     @Override
@@ -321,8 +374,11 @@ public class ClientCommand extends BaseCommand {
                 return this;
 
             case INSERT: // 插入
+                // TODO
 
             case UPDATE: // 更新
+                this.update.operate();
+                return this;
 
             case DELETE: // 删除
                 this.delete.operate();
