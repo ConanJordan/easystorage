@@ -25,6 +25,11 @@ public final class UpdateOperate extends PreCompile implements Operate {
     private List<Field> usedFields = new ArrayList<>();
     
     /**
+     * 构建SQL语句
+     */
+    private StringBuilder sqlBuilder;
+    
+    /**
      * 构造方法
      * 不对外开放
      */
@@ -139,39 +144,50 @@ public final class UpdateOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byTarget() throws Exception {
-        StringBuilder sql = new StringBuilder("UPDATE ");
-        sql.append(this.table); // 表名
-        sql.append(" SET ");
+        this.sqlBuilder = new StringBuilder("UPDATE ");
+        this.sqlBuilder.append(this.table); // 表名
+        this.sqlBuilder.append(" SET ");
         
         this.usedFields.clear(); // 清空目标对象的属性集合
 
         EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
                 .forEach(field -> {
-                    sql.append(field.getAnnotation(Column.class).value());
-                    sql.append(" = ?, ");
+                    this.sqlBuilder.append(field.getAnnotation(Column.class).value());
+                    this.sqlBuilder.append(" = ?, ");
                     this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
-        sql.substring(0, sql.length() - 2);
+        this.sqlBuilder = new StringBuilder(this.sqlBuilder.substring(0, this.sqlBuilder.length() - 2));
 
-        sql.append(" WHERE ");
+        this.sqlBuilder.append(" WHERE ");
 
         EntityParse.getPkFields(this.structure) // 获取目标实体类的主键的属性的流
                 .forEach(field -> {
-                    sql.append(field.getAnnotation(Column.class).value());
-                    sql.append(" = ? AND ");
+                    this.sqlBuilder.append(field.getAnnotation(Column.class).value());
+                    this.sqlBuilder.append(" = ? AND ");
                     this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
-        sql.substring(0, sql.length() - 4);
+        this.sqlBuilder = new StringBuilder(this.sqlBuilder.substring(0, this.sqlBuilder.length() - 4));
 
-        this.SQL = sql.toString();
+        // 添加传过来的condition(乐观排他等等)
+        if (CommonUtil.isEmpty(this.condition) == false) {
+            this.sqlBuilder.append(" AND ").append(this.condition);
+        }
+
+        this.SQL = this.sqlBuilder.toString();
 
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
-        // 设置参数
+        // 设置更新字段和主键参数
         for (int i = 1; i <= this.usedFields.size(); i ++) { // 参数的索引从1开始
             this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), this.target));
+        }
+        // 设置condition参数(乐观排他等)
+        if (CommonUtil.isEmpty(this.args) == false) {
+            for (int i = 1; i <= this.args.length; i ++) {
+                this.prst.setObject(this.usedFields.size() + i, this.args[i - 1]);
+            }
         }
     }
 
@@ -180,46 +196,50 @@ public final class UpdateOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byTargets() throws Exception {
-        StringBuilder sql = new StringBuilder("UPDATE ");
-        sql.append(this.table); // 表名
-        sql.append(" SET ");
+        this.sqlBuilder = new StringBuilder("UPDATE ");
+        this.sqlBuilder.append(this.table); // 表名
+        this.sqlBuilder.append(" SET ");
         
         this.usedFields.clear(); // 清空目标对象的属性集合
 
         EntityParse.getNonPkFields(this.structure) // 获取目标实体类的非主键的属性的流
                 .forEach(field -> {
-                    sql.append(field.getAnnotation(Column.class).value());
-                    sql.append(" = ?, ");
+                    this.sqlBuilder.append(field.getAnnotation(Column.class).value());
+                    this.sqlBuilder.append(" = ?, ");
                     this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
-        sql.substring(0, sql.length() - 2);
+        this.sqlBuilder = new StringBuilder(this.sqlBuilder.substring(0, this.sqlBuilder.length() - 2));
 
-        sql.append(" WHERE ");
+        this.sqlBuilder.append(" WHERE ");
 
         EntityParse.getPkFields(this.structure) // 获取目标实体类的主键的属性的流
                 .forEach(field -> {
-                    sql.append(field.getAnnotation(Column.class).value());
-                    sql.append(" = ? AND ");
+                    this.sqlBuilder.append(field.getAnnotation(Column.class).value());
+                    this.sqlBuilder.append(" = ? AND ");
                     this.usedFields.add(field); // 放入目标对象的属性集合
                 });
 
-        sql.substring(0, sql.length() - 4);
+        this.sqlBuilder = new StringBuilder(this.sqlBuilder.substring(0, this.sqlBuilder.length() - 4));
 
-        this.SQL = sql.toString();
+        this.SQL = this.sqlBuilder.toString();
 
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
-        this.targets.parallelStream()
+        this.targets.stream()
                     .forEach(item -> {
                         for (int i = 1; i <= this.usedFields.size(); i ++) { // 参数的索引从1开始
                             try {
                                 this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), item));
-                                this.prst.addBatch(); // 批量预编译
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
-                            } 
+                            }
+                        }
+                        try {
+                            this.prst.addBatch(); // 批量预编译
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
                     });
     }
