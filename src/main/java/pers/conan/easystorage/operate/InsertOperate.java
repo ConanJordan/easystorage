@@ -18,7 +18,7 @@ import pers.conan.easystorage.util.Sql;
  *
  * @author Conan
  */
-public class InsertOperate extends PreCompile implements Operate {
+public final class InsertOperate extends PreCompile implements Operate {
     
     private static final Logger LOG = Logger.getLogger(InsertOperate.class);
     

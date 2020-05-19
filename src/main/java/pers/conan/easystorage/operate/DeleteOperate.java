@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
  *
  * @author Conan
  */
-public class DeleteOperate extends PreCompile implements Operate {
+public final class DeleteOperate extends PreCompile implements Operate {
     
     /**
      * 构造方法

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /**
  * 类：查询操作
  */
-public class SelectOperate extends PreCompile implements Operate {
+public final class SelectOperate extends PreCompile implements Operate {
 
     /**
      * 构造方法

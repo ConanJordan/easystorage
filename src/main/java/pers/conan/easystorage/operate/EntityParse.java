@@ -22,22 +22,40 @@ import java.util.stream.Stream;
  */
 public class EntityParse {
 
-    // 获取目标实体类的所有属性的流
+    /**
+     * 获取目标实体类的所有属性的流
+     * @param structure
+     * @return
+     */
     public static Stream<Field> getAllFields(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields());  // 获取所有属性(private 和 public)
     }
 
-    // 获取目标实体类的所有属性名称的流
+    /**
+     * 获取目标实体类的所有属性名称的流
+     * @param fields
+     * @return
+     */
     public static Stream<String> getAllFiledNames(Stream<Field> fields) {
         return fields.map(field -> field.getName());
     }
-
-    // 获取目标实体类的属性的Column注解的值
+    
+    /**
+     * 获取目标实体类的属性的Column注解的值
+     * @param field
+     * @return
+     */
     public static String getFieldColumn(Field field) {
         return field.getAnnotation(Column.class).value();
     }
 
-    // 获取属性的set方法
+    /**
+     * 获取属性的set方法
+     * @param structure
+     * @param field
+     * @return
+     * @throws NoSuchMethodException
+     */
     public static Method getSetMethod(Class<? extends Structure> structure, Field field) throws NoSuchMethodException {
         // 获取set方法的名称(一般来说是set + 大写的属性名称首字母 + 属性名称的剩余字母)
         String fieldName = field.getName();
@@ -52,7 +70,13 @@ public class EntityParse {
         return method;
     }
     
-    // 获取属性的get方法
+    /**
+     * 获取属性的get方法
+     * @param structure
+     * @param field
+     * @return
+     * @throws NoSuchMethodException
+     */
     public static Method getGetMethod(Class<? extends Structure> structure, Field field) throws NoSuchMethodException {
         // 获取set方法的名称(一般来说是get + 大写的属性名称首字母 + 属性名称的剩余字母)
         String fieldName = field.getName();
@@ -64,35 +88,63 @@ public class EntityParse {
         return method;
     }
     
-    // 获取目标实体类的主键的字段名称的流
+    /**
+     * 获取目标实体类的主键的字段名称的流
+     * @param structure
+     * @return
+     */
     public static Stream<String> getPkColumns(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields()) // 获取所有属性
                .filter(field -> CommonUtil.isNotEmpty(field.getAnnotation(PrimaryKey.class))) // 过滤出作主键的属性
                .map(field -> field.getAnnotation(Column.class).value()); // 映射成字段名称的流
     }
     
-    // 获取目标实体类的作主键的属性的流
+    /**
+     * 获取目标实体类的作主键的属性的流
+     * @param structure
+     * @return
+     */
     public static Stream<Field> getPkFields(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields()) // 获取所有属性
                 .filter(field ->
                         CommonUtil.isNotEmpty(field.getAnnotation(PrimaryKey.class)) && CommonUtil.isNotEmpty(field.getAnnotation(Column.class))); // 过滤出作主键的属性
     }
-
-    // 获取目标实体类的非主键的属性的流
+    
+    /**
+     * 获取目标实体类的非主键的属性的流
+     * @param structure
+     * @return
+     */
     public static Stream<Field> getNonPkFields(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields())
                 .filter(field ->
                         CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class)) && !CommonUtil.isEmpty(field.getAnnotation(Column.class)));
     }
 
-    // 获取目标属性的值
+    /**
+     * 获取目标对象所对应的属性的值
+     * @param structure
+     * @param field
+     * @param instance
+     * @return
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
     public static Object getFieldValue(Class<? extends Structure> structure, Field field, Structure instance) 
             throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method getMethod = getGetMethod(structure, field); // 获取目标属性的get方法
         return getMethod.invoke(instance); // 返回get方法获取到的值
     }
-    
-    // 解析目标类的属性结构
+
+    /**
+     * 解析目标类的属性结构
+     * @param structure
+     * @param seqFields
+     * @param autoFields
+     * @param otherFields
+     */
     public static void parseEntityClass(
             Class<? extends Structure> structure, List<Field> seqFields, List<Field> autoFields, List<Field> otherFields) {
         // 清空集合
@@ -119,8 +171,12 @@ public class EntityParse {
                   }
               });
     }
-    
-    // 获取属性的序列号的名称
+
+    /**
+     * 获取属性的序列号的名称
+     * @param field
+     * @return
+     */
     public static String getSequence(Field field) {
         return field.getAnnotation(Sequence.class).value();
     }
