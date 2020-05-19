@@ -155,7 +155,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand select(String table, String condition, String sort, Object[] args, Class<? extends Structure> structure) throws Exception {
-
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性值
         this.table = table;
         this.condition = condition;
@@ -180,6 +184,10 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(sql) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
         
         // 设置SQL语句和参数
         this.SQL = sql;
@@ -207,6 +215,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand update(String table, Structure target, String condition, Object[] args, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(target) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         this.table = table;
         this.target = target;
         this.condition = condition;
@@ -229,6 +242,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand update(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(targets) || CommonUtil.isEmpty(structure)) {
+            
+        }
+        
         this.table = table;
         this.targets = targets;
         this.structure = structure;
@@ -249,6 +267,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand update(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(sql) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         this.SQL = sql;
         this.args = args;
         this.structure = structure;
@@ -269,6 +292,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand delete(String sql, Object[] args) throws Exception {
+        
+        if (CommonUtil.isEmpty(sql)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.SQL = sql;
         this.args = args;
@@ -288,6 +316,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand delete(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(target) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.table = table;
         this.target = target;
@@ -308,6 +341,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand delete(String table, String condition, Object[] args) throws Exception {
+        
+        if (CommonUtil.isEmpty(table)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.table = table;
         this.condition = condition;
@@ -328,6 +366,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand delete(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(targets) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.table = table;
         this.targets = targets;
@@ -384,6 +427,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand insert(String sql, Object[] args) throws Exception {
+        
+        if (CommonUtil.isEmpty(sql)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.SQL = sql;
         this.args = args;
@@ -404,6 +452,11 @@ public class ClientCommand extends BaseCommand {
 
     @Override
     public ClientCommand insert(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(target) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.table = table;
         this.target = target;
@@ -426,6 +479,11 @@ public class ClientCommand extends BaseCommand {
     @Override
     public ClientCommand insert(String table, Collection<? extends Structure> targets,
             Class<? extends Structure> structure) throws Exception {
+        
+        if (CommonUtil.isEmpty(table) || CommonUtil.isEmpty(targets) || CommonUtil.isEmpty(structure)) {
+            throw new NullPointerException();
+        }
+        
         // 设置属性
         this.table = table;
         this.targets = targets;
