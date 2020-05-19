@@ -375,4 +375,23 @@ public class ClientCommand extends BaseCommand {
         return this.resultCount;
     }
 
+    @Override
+    public ClientCommand insert(String sql, Object[] args) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ClientCommand insert(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ClientCommand insert(String table, Collection<? extends Structure> targets,
+            Class<? extends Structure> structure) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
