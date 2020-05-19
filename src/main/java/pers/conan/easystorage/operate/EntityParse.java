@@ -1,13 +1,18 @@
 package pers.conan.easystorage.operate;
 
+import pers.conan.easystorage.annotation.AutoIncrement;
 import pers.conan.easystorage.annotation.Column;
 import pers.conan.easystorage.annotation.PrimaryKey;
+import pers.conan.easystorage.annotation.Sequence;
 import pers.conan.easystorage.annotation.Structure;
+import pers.conan.easystorage.exception.SequenceIncrementCoflictException;
 import pers.conan.easystorage.util.CommonUtil;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -85,5 +90,28 @@ public class EntityParse {
             throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method getMethod = getGetMethod(structure, field); // 获取目标属性的get方法
         return getMethod.invoke(instance); // 返回get方法获取到的值
+    }
+    
+    // 检查目标类的属性结构
+    public static void checkEntityClass(
+            Class<? extends Structure> structure, List<Field> seqFields, List<Field> autoFields, List<Field> otherFields) {
+        Stream.of(structure.getDeclaredFields()) // 获取所有属性
+              .filter(field -> CommonUtil.isNotEmpty(field.getAnnotation(Column.class))) // 过滤出作字段的属性
+              .forEach(field -> {
+                  Annotation column = field.getAnnotation(Column.class); // 获取字段注解
+                  Annotation seq = field.getAnnotation(Sequence.class); // 获取序列号注解
+                  Annotation auto = field.getAnnotation(AutoIncrement.class); // 获取自动递增注解
+                  
+                  if (CommonUtil.isNotEmpty(seq)) {
+                      if (CommonUtil.isNotEmpty(auto)) { // 同时有序列号和递增
+                          throw new SequenceIncrementCoflictException(((Column)column).value());
+                      }
+                      seqFields.add(field);
+                  } else if (CommonUtil.isNotEmpty(auto)) {
+                      autoFields.add(field);
+                  }
+                  
+                  otherFields.add(field);
+              });
     }
 }

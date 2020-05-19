@@ -30,4 +30,13 @@ public class CommonUtil {
         
         return "".equals(obj.toString());
     }
+    
+    /**
+     * 判断对象是否不为空
+     * @param obj
+     * @return
+     */
+    public static boolean isNotEmpty(Object obj) {
+        return !isEmpty(obj);
+    }
 }
