@@ -36,6 +36,7 @@
 ``` java
     int resultCount = command.delete("delete from xxx where a = ? and b = ?", new Object[]{a, b}).execute().toResultCount();
 ```
+具体的使用方法请参考：[使用说明](description.md)
 
 #### 参与贡献
 请联系我
