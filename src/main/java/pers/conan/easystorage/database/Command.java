@@ -17,7 +17,7 @@ public interface Command<T> {
 
     T select(String table, String condition, String sort, Object[] args, Class<? extends Structure> structure) throws Exception;
 
-    T Select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
+    T select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     T insert(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 

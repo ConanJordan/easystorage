@@ -24,7 +24,7 @@ public abstract class BaseCommand implements Executable<BaseCommand>, Command<Ba
             Class<? extends Structure> structure) throws Exception;
 
     @Override
-    public abstract BaseCommand Select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
+    public abstract BaseCommand select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     @Override
     public abstract BaseCommand insert(String table, Structure target, Class<? extends Structure> structure) throws Exception;

@@ -173,7 +173,7 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand Select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
+    public ClientCommand select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception {
         
         // 设置SQL语句和参数
         this.SQL = sql;
