@@ -1,13 +1,14 @@
 package pers.conan.easystorage.operate;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
+import pers.conan.easystorage.util.Sql;
 
 
 /**
@@ -79,17 +80,46 @@ public class InsertOperate extends PreCompile implements Operate {
      */
     @Override
     public void prepare() throws Exception {
-
-        // TODO
         
+        switch(this.psType) { // 判断预编译类型
+            case SQL:
+                this.bySql();
+                break;
+                
+            case TARGET:
+                this.byTarget();
+                break;
+                
+            case TARGETS:
+                this.byTargets();
+                break;
+                
+            default: // 没有预编译类型或条件预编译类型
+                throw new Exception();
+        }
     }
 
     /**
      * 执行SQL操作
+     * @throws SQLException 
      */
     @Override
-    public void operate() {
-
+    public void operate() throws SQLException {
+        try {
+            if (this.psType != PreparedStatementType.TARGETS) { // 不需要批量处理
+                this.resultCount = this.prst.executeUpdate(); // 获取成功执行的记录数 
+            } else { // 需要批量处理
+                this.resultCount = Arrays.stream(this.prst.executeBatch())
+                                .reduce(0, (acc, element) -> acc + element); // 获取成功执行的记录数       
+            }
+            
+            this.command.setResultCount(this.resultCount); // 设置成功执行的记录数
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            // 释放数据库资源
+            Sql.close(new AutoCloseable[] {this.prst});
+        }
     }
 
     /**
@@ -211,9 +241,6 @@ public class InsertOperate extends PreCompile implements Operate {
                     throw new RuntimeException(e);
                 }
             });
-        
-        
-        
-        
+
     }
 }
