@@ -191,7 +191,7 @@ public class DeleteOperate extends PreCompile implements Operate {
             .forEach(item -> {
                 try {
                     this.editArgs(pkFields, item); // 设置参数
-                    this.prst.addBatch(); // 加入批处理
+                    this.prst.addBatch(); // 加入批量预编译
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

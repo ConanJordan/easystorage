@@ -92,9 +92,14 @@ public class EntityParse {
         return getMethod.invoke(instance); // 返回get方法获取到的值
     }
     
-    // 检查目标类的属性结构
-    public static void checkEntityClass(
+    // 解析目标类的属性结构
+    public static void parseEntityClass(
             Class<? extends Structure> structure, List<Field> seqFields, List<Field> autoFields, List<Field> otherFields) {
+        // 清空集合
+        seqFields.clear();
+        autoFields.clear();
+        otherFields.clear();
+        
         Stream.of(structure.getDeclaredFields()) // 获取所有属性
               .filter(field -> CommonUtil.isNotEmpty(field.getAnnotation(Column.class))) // 过滤出作字段的属性
               .forEach(field -> {
@@ -113,5 +118,10 @@ public class EntityParse {
                   
                   otherFields.add(field);
               });
+    }
+    
+    // 获取属性的序列号的名称
+    public static String getSequence(Field field) {
+        return field.getAnnotation(Sequence.class).value();
     }
 }

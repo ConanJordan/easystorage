@@ -1,6 +1,10 @@
 package pers.conan.easystorage.operate;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
@@ -12,6 +16,21 @@ import pers.conan.easystorage.util.CommonUtil;
  * @author Conan
  */
 public class InsertOperate extends PreCompile implements Operate {
+    
+    /**
+     * 有序列号的属性集合
+     */
+    private List<Field> seqFields = new ArrayList<>();
+    
+    /**
+     * 自动递增的属性集合
+     */
+    private List<Field> autoFields = new ArrayList<>();
+    
+    /**
+     * 其他属性集合
+     */
+    private List<Field> otherFields = new ArrayList<>();
 
     /**
      * 构造方法
@@ -103,7 +122,40 @@ public class InsertOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byTarget() throws Exception {
-        // TODO Auto-generated method stub
+        // 解析目标类的属性结构
+        EntityParse.parseEntityClass(this.structure, this.seqFields, this.autoFields, this.otherFields);
+        
+        StringBuilder sql1 = new StringBuilder("INSERT INTO "); // SQL语句前半部分
+        sql1.append(this.table); // 表名
+        sql1.append(" ( ");
+        
+        StringBuilder sql2 = new StringBuilder(" VALUES ( "); // SQL语句后半部分
+        
+        // 给SQL语句添加序列号的字段
+        for (int i = 0; i < this.seqFields.size(); i ++) {
+            sql1.append(EntityParse.getFieldColumn(seqFields.get(i)) + ", ");
+            sql2.append(EntityParse.getSequence(seqFields.get(i)) + ".NEXTVAL, ");
+        }
+        
+        // 给SQL语句添加其他字段
+        for (int i = 0; i < this.otherFields.size(); i ++) {
+            sql1.append(EntityParse.getFieldColumn(otherFields.get(i)) + ", ");
+            sql2.append("?, ");
+        }
+        
+        // 整合SQL语句
+        this.SQL = 
+                sql1.toString().substring(0, sql1.length() - 2)
+                + " ) "
+                + sql2.toString().substring(0, sql2.length() - 2)
+                + " ) ";
+        
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 设置参数
+        for (int i = 1; i <= this.otherFields.size(); i ++) {
+            this.prst.setObject(i, EntityParse.getFieldValue(this.structure, otherFields.get(i - 1), this.target));
+        }
         
     }
 
@@ -112,7 +164,56 @@ public class InsertOperate extends PreCompile implements Operate {
      */
     @Override
     protected void byTargets() throws Exception {
-        // TODO Auto-generated method stub
+        // 解析目标类的属性结构
+        EntityParse.parseEntityClass(this.structure, this.seqFields, this.autoFields, this.otherFields);
+        
+        StringBuilder sql1 = new StringBuilder("INSERT INTO "); // SQL语句前半部分
+        sql1.append(this.table); // 表名
+        sql1.append(" ( ");
+        
+        StringBuilder sql2 = new StringBuilder(" VALUES ( "); // SQL语句后半部分
+        
+        // 给SQL语句添加序列号的字段
+        for (int i = 0; i < this.seqFields.size(); i ++) {
+            sql1.append(EntityParse.getFieldColumn(seqFields.get(i)) + ", ");
+            sql2.append(EntityParse.getSequence(seqFields.get(i)) + ".NEXTVAL, ");
+        }
+        
+        // 给SQL语句添加其他字段
+        for (int i = 0; i < this.otherFields.size(); i ++) {
+            sql1.append(EntityParse.getFieldColumn(otherFields.get(i)) + ", ");
+            sql2.append("?, ");
+        }
+        
+        // 整合SQL语句
+        this.SQL = 
+                sql1.toString().substring(0, sql1.length() - 2)
+                + " ) "
+                + sql2.toString().substring(0, sql2.length() - 2)
+                + " ) ";
+        
+        this.prst = this.connection.prepareStatement(this.SQL); // 预编译
+        
+        // 设置参数
+        this.targets.stream()
+            .forEach(item -> {
+                for (int i = 1; i <= this.otherFields.size(); i ++) {
+                    try {
+                        this.prst.setObject(i, EntityParse.getFieldValue(this.structure, otherFields.get(i - 1), this.target));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                
+                try {
+                    this.prst.addBatch(); // 批量预编译
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        
+        
+        
         
     }
 }
