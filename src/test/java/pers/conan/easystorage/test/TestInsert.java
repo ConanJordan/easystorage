@@ -1,7 +1,9 @@
 package pers.conan.easystorage.test;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,13 +11,11 @@ import org.apache.log4j.Logger;
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.Sql;
 
-public class TestUpdate {
+public class TestInsert {
     
-    private static final Logger LOG = Logger.getLogger(TestUpdate.class);
+    private static final Logger LOG = Logger.getLogger(TestInsert.class);
 
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        
         Connection connection = DataBaseFactory.createConnection();
         
         try {
@@ -30,40 +30,39 @@ public class TestUpdate {
         ClientCommand command = ClientCommand.build(connection);
         
         try {
-            List<Team> teams = (List<Team>) command.select("TEAMS",null, null, Team.class)
-                                      .execute()
-                                      .toList();
-            
             /*
-             * teams.stream() .forEach(team -> LOG.debug(team.toString()));
+             * command.insert("INSERT INTO PLAYERS (" +
+             * "ID, FIRST_NAME, LAST_NAME, UNIFORM_NUMBER, TEAM_ID) " + "VALUES (" +
+             * "SEQ_PLAYER_ID.NEXTVAL, ?, ?, ?, ?)", new Object[] {"Lebron", "James", 23,
+             * 4});
              */
-            for (int i = 0; i < teams.size(); i ++) {
-                teams.get(i).setName(teams.get(i).getName() + teams.get(i).getId());
-                LOG.debug(teams.get(i).toString());
-            }
             
-            int resultCount = command.update("TEAMS", teams, Team.class)
-                                     .execute()
-                                     .toResultCount();
+            List<Player> players = new ArrayList<>();
             
-            LOG.debug("成功更新" + resultCount + "条数据。");
+            players.add(new Player("Steven", "Curry", 30, 1));
+            players.add(new Player("Kevin", "Durant", 35, 1));
+            
+            command.insert("PLAYERS", players, Player.class);
+            
+            int resultCount = command.execute().toResultCount();
+            
+            LOG.debug("成功插入" + resultCount + "条数据。");
             
             connection.commit();
-            LOG.debug("更新成功，提交更新。");
+            LOG.debug("插入成功，提交更新。");
+            
         } catch (Exception e) {
+            LOG.debug("更新失败，数据回滚。");
+            LOG.error(e);
             try {
-                LOG.debug("更新失败，数据回滚。");
-                connection.rollback(); // 回滚
+                connection.rollback();
             } catch (SQLException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
-            }
-            e.printStackTrace();
+            } // 回滚
         } finally {
             Sql.close(new AutoCloseable[] {connection}); // 释放数据库资源
         }
-
-
     }
 
 }

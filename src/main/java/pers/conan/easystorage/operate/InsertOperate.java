@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import pers.conan.easystorage.database.ClientCommand;
 import pers.conan.easystorage.util.CommonUtil;
 import pers.conan.easystorage.util.Sql;
@@ -17,6 +19,8 @@ import pers.conan.easystorage.util.Sql;
  * @author Conan
  */
 public class InsertOperate extends PreCompile implements Operate {
+    
+    private static final Logger LOG = Logger.getLogger(InsertOperate.class);
     
     /**
      * 有序列号的属性集合
@@ -52,6 +56,7 @@ public class InsertOperate extends PreCompile implements Operate {
 
         instance.connection = command.getConnection();
         instance.SQL = command.getSQL();
+        instance.args = command.getArgs();
         instance.condition = command.getCondition();
         instance.target = command.getTarget();
         instance.targets = command.getTargets();
@@ -69,6 +74,7 @@ public class InsertOperate extends PreCompile implements Operate {
     public void reset() {
         this.connection = command.getConnection();
         this.SQL = command.getSQL();
+        this.args = command.getArgs();
         this.condition = command.getCondition();
         this.target = command.getTarget();
         this.targets = command.getTargets();
@@ -129,10 +135,11 @@ public class InsertOperate extends PreCompile implements Operate {
     @Override
     protected void bySql() throws SQLException {
         
+        LOG.debug("The SQL below will be excuted:" + this.SQL);
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
-        if (CommonUtil.isEmpty(this.args) == false) {
+        if (CommonUtil.isNotEmpty(this.args)) {
             for (int i = 1; i <= this.args.length; i ++) {
                 this.prst.setObject(i, this.args[i - 1]);
             }
@@ -180,6 +187,7 @@ public class InsertOperate extends PreCompile implements Operate {
                 + sql2.toString().substring(0, sql2.length() - 2)
                 + " ) ";
         
+        LOG.debug("The SQL below will be excuted:" + this.SQL);
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
@@ -222,6 +230,7 @@ public class InsertOperate extends PreCompile implements Operate {
                 + sql2.toString().substring(0, sql2.length() - 2)
                 + " ) ";
         
+        LOG.debug("The SQL below will be excuted:" + this.SQL);
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数

@@ -55,7 +55,7 @@ public class ClientCommand extends BaseCommand {
     /**
      * 目标结构体的类
      */
-    private Class<? extends  Structure> structure;
+    private Class<? extends Structure> structure;
     
     /**
      * 目标结构体对象的流

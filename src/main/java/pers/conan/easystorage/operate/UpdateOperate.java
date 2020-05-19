@@ -132,7 +132,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
 
         // 设置参数
-        if (CommonUtil.isEmpty(this.args) == false) {
+        if (CommonUtil.isNotEmpty(this.args)) {
             for (int i = 1; i <= this.args.length; i ++) {
                 this.prst.setObject(i, args[i - 1]);
             }
@@ -171,7 +171,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
         this.sqlBuilder = new StringBuilder(this.sqlBuilder.substring(0, this.sqlBuilder.length() - 4));
 
         // 添加传过来的condition(乐观排他等等)
-        if (CommonUtil.isEmpty(this.condition) == false) {
+        if (CommonUtil.isNotEmpty(this.condition)) {
             this.sqlBuilder.append(" AND ").append(this.condition);
         }
 
@@ -184,7 +184,7 @@ public final class UpdateOperate extends PreCompile implements Operate {
             this.prst.setObject(i, EntityParse.getFieldValue(this.structure, this.usedFields.get(i - 1), this.target));
         }
         // 设置condition参数(乐观排他等)
-        if (CommonUtil.isEmpty(this.args) == false) {
+        if (CommonUtil.isNotEmpty(this.args)) {
             for (int i = 1; i <= this.args.length; i ++) {
                 this.prst.setObject(this.usedFields.size() + i, this.args[i - 1]);
             }
