@@ -67,7 +67,7 @@ public class EntityParse {
     // 获取目标实体类的主键的字段名称的流
     public static Stream<String> getPkColumns(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields()) // 获取所有属性
-               .filter(field -> !CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class))) // 过滤出作主键的属性
+               .filter(field -> CommonUtil.isNotEmpty(field.getAnnotation(PrimaryKey.class))) // 过滤出作主键的属性
                .map(field -> field.getAnnotation(Column.class).value()); // 映射成字段名称的流
     }
     
@@ -75,7 +75,7 @@ public class EntityParse {
     public static Stream<Field> getPkFields(Class<? extends Structure> structure) {
         return Stream.of(structure.getDeclaredFields()) // 获取所有属性
                 .filter(field ->
-                        !CommonUtil.isEmpty(field.getAnnotation(PrimaryKey.class)) && !CommonUtil.isEmpty(field.getAnnotation(Column.class))); // 过滤出作主键的属性
+                        CommonUtil.isNotEmpty(field.getAnnotation(PrimaryKey.class)) && CommonUtil.isNotEmpty(field.getAnnotation(Column.class))); // 过滤出作主键的属性
     }
 
     // 获取目标实体类的非主键的属性的流

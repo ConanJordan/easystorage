@@ -103,7 +103,7 @@ public class DeleteOperate extends PreCompile implements Operate {
         
         sql.append(this.table);
         
-        if (CommonUtil.isEmpty(this.condition) == false) {
+        if (CommonUtil.isNotEmpty(this.condition)) {
             sql.append(" WHERE ");
             sql.append(this.condition);
         }
@@ -113,7 +113,7 @@ public class DeleteOperate extends PreCompile implements Operate {
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
-        if (CommonUtil.isEmpty(this.args) == false) {
+        if (CommonUtil.isNotEmpty(this.args)) {
             for (int i = 1; i <= this.args.length; i ++) {
                 this.prst.setObject(i, this.args[i - 1]);
             }
@@ -130,7 +130,7 @@ public class DeleteOperate extends PreCompile implements Operate {
         this.prst = this.connection.prepareStatement(this.SQL); // 预编译
         
         // 设置参数
-        if (CommonUtil.isEmpty(this.args) == false) {
+        if (CommonUtil.isNotEmpty(this.args)) {
             for (int i = 1; i <= this.args.length; i ++) {
                 this.prst.setObject(i, this.args[i - 1]);
             }
