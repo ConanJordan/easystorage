@@ -37,14 +37,20 @@ public class TestInsert {
              * 4});
              */
             
-            List<Player> players = new ArrayList<>();
+            /*
+             * List<Player> players = new ArrayList<>();
+             * 
+             * players.add(new Player("Steven", "Curry", 30, 1)); players.add(new
+             * Player("Kevin", "Durant", 35, 1));
+             * 
+             * command.insert("PLAYERS", players, Player.class);
+             */
             
-            players.add(new Player("Steven", "Curry", 30, 1));
-            players.add(new Player("Kevin", "Durant", 35, 1));
+            Player jordan = new Player("Michle", "Jordan", 23, 0);
             
-            command.insert("PLAYERS", players, Player.class);
-            
-            int resultCount = command.execute().toResultCount();
+            int resultCount = command.insert("PLAYERS", jordan, jordan.getClass())
+                                     .execute()
+                                     .toResultCount();
             
             LOG.debug("成功插入" + resultCount + "条数据。");
             

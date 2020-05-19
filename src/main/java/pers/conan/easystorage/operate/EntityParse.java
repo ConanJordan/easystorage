@@ -96,9 +96,9 @@ public class EntityParse {
     public static void parseEntityClass(
             Class<? extends Structure> structure, List<Field> seqFields, List<Field> autoFields, List<Field> otherFields) {
         // 清空集合
-        seqFields.clear();
-        autoFields.clear();
-        otherFields.clear();
+        seqFields.clear(); // 序列号属性集合
+        autoFields.clear(); // 自动递增属性集合
+        otherFields.clear(); // 普通属性集合
         
         Stream.of(structure.getDeclaredFields()) // 获取所有属性
               .filter(field -> CommonUtil.isNotEmpty(field.getAnnotation(Column.class))) // 过滤出作字段的属性
@@ -111,12 +111,12 @@ public class EntityParse {
                       if (CommonUtil.isNotEmpty(auto)) { // 同时有序列号和递增
                           throw new SequenceIncrementCoflictException(((Column)column).value());
                       }
-                      seqFields.add(field);
+                      seqFields.add(field); // 序列号属性
                   } else if (CommonUtil.isNotEmpty(auto)) {
-                      autoFields.add(field);
+                      autoFields.add(field); // 自动递增属性
+                  } else {
+                      otherFields.add(field); // 普通字段属性
                   }
-                  
-                  otherFields.add(field);
               });
     }
     

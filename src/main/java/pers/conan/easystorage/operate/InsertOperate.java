@@ -58,6 +58,7 @@ public class InsertOperate extends PreCompile implements Operate {
         instance.SQL = command.getSQL();
         instance.args = command.getArgs();
         instance.condition = command.getCondition();
+        instance.structure = command.getStructure();
         instance.target = command.getTarget();
         instance.targets = command.getTargets();
         instance.table = command.getTable();
@@ -76,6 +77,7 @@ public class InsertOperate extends PreCompile implements Operate {
         this.SQL = command.getSQL();
         this.args = command.getArgs();
         this.condition = command.getCondition();
+        this.structure = command.getStructure();
         this.target = command.getTarget();
         this.targets = command.getTargets();
         this.table = command.getTable();
@@ -238,7 +240,7 @@ public class InsertOperate extends PreCompile implements Operate {
             .forEach(item -> {
                 for (int i = 1; i <= this.otherFields.size(); i ++) {
                     try {
-                        this.prst.setObject(i, EntityParse.getFieldValue(this.structure, otherFields.get(i - 1), this.target));
+                        this.prst.setObject(i, EntityParse.getFieldValue(this.structure, otherFields.get(i - 1), item));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
