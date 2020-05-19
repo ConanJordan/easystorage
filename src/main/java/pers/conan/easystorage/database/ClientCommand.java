@@ -2,6 +2,7 @@ package pers.conan.easystorage.database;
 
 import pers.conan.easystorage.annotation.Structure;
 import pers.conan.easystorage.operate.DeleteOperate;
+import pers.conan.easystorage.operate.InsertOperate;
 import pers.conan.easystorage.operate.OperateType;
 import pers.conan.easystorage.operate.PreparedStatementType;
 import pers.conan.easystorage.operate.SelectOperate;
@@ -47,9 +48,14 @@ public class ClientCommand extends BaseCommand {
     private UpdateOperate update;
     
     /**
+     * 插入操作
+     */
+    private InsertOperate insert;
+    
+    /**
      * 目标结构体的类
      */
-    private Class<? extends  Structure> structure;
+    private Class<? extends Structure> structure;
     
     /**
      * 目标结构体对象的流
@@ -192,31 +198,6 @@ public class ClientCommand extends BaseCommand {
         this.select.prepare();
         
         return this;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Structure target, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Structure target, String seq, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, String seq, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel, Class<? extends Structure> structure) {
-        return null;
     }
 
     @Override
@@ -374,7 +355,8 @@ public class ClientCommand extends BaseCommand {
                 return this;
 
             case INSERT: // 插入
-                // TODO
+                this.insert.operate();
+                return this;
 
             case UPDATE: // 更新
                 this.update.operate();
@@ -398,6 +380,69 @@ public class ClientCommand extends BaseCommand {
     
     public int toResultCount() {
         return this.resultCount;
+    }
+
+    @Override
+    public ClientCommand insert(String sql, Object[] args) throws Exception {
+        // 设置属性
+        this.SQL = sql;
+        this.args = args;
+        
+        if (CommonUtil.isEmpty(this.insert)) { // 初始化插入操作
+            this.insert = InsertOperate.build(this);
+        } else { // 重置插入操作
+            this.insert.reset();
+        }
+        
+        this.operateType = OperateType.INSERT; // 设置操作类型
+        this.insert.setPsType(PreparedStatementType.SQL); // 设置预编译类型
+        
+        this.insert.prepare();
+        
+        return this;
+    }
+
+    @Override
+    public ClientCommand insert(String table, Structure target, Class<? extends Structure> structure) throws Exception {
+        // 设置属性
+        this.table = table;
+        this.target = target;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.insert)) { // 初始化插入操作
+            this.insert = InsertOperate.build(this);
+        } else { // 重置插入操作
+            this.insert.reset();
+        }
+        
+        this.operateType = OperateType.INSERT; // 设置操作类型
+        this.insert.setPsType(PreparedStatementType.TARGET); // 设置预编译类型
+        
+        this.insert.prepare();
+        
+        return this;
+    }
+
+    @Override
+    public ClientCommand insert(String table, Collection<? extends Structure> targets,
+            Class<? extends Structure> structure) throws Exception {
+        // 设置属性
+        this.table = table;
+        this.targets = targets;
+        this.structure = structure;
+        
+        if (CommonUtil.isEmpty(this.insert)) { // 初始化插入操作
+            this.insert = InsertOperate.build(this);
+        } else { // 重置插入操作
+            this.insert.reset();
+        }
+        
+        this.operateType = OperateType.INSERT; // 设置操作类型
+        this.insert.setPsType(PreparedStatementType.TARGETS); // 设置预编译类型
+        
+        this.insert.prepare();
+        
+        return this;
     }
 
 }

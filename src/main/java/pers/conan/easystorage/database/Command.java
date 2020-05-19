@@ -18,16 +18,12 @@ public interface Command<T> {
     T select(String table, String condition, String sort, Object[] args, Class<? extends Structure> structure) throws Exception;
 
     T select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
-
+    
+    T insert(String sql, Object[] args) throws Exception;
+    
     T insert(String table, Structure target, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Structure target, String seq, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, String seq, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, String seq, boolean isParallel, Class<? extends Structure> structure) throws Exception;
+    
+    T insert(String table, Collection<? extends Structure> targets, Class<? extends Structure> structure) throws Exception;
 
     T update(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 
