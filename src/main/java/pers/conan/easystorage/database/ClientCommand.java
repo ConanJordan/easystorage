@@ -195,31 +195,6 @@ public class ClientCommand extends BaseCommand {
     }
 
     @Override
-    public ClientCommand insert(String table, Structure target, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Structure target, String seq, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, String seq, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
-    public ClientCommand insert(String table, Collection<Structure> targets, String seq, boolean isParallel, Class<? extends Structure> structure) {
-        return null;
-    }
-
-    @Override
     public ClientCommand update(String table, Structure target, Class<? extends Structure> structure) throws Exception {
         return this.update(table, target, null, null, structure);
     }

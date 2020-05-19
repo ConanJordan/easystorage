@@ -19,16 +19,6 @@ public interface Command<T> {
 
     T select(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
 
-    T insert(String table, Structure target, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Structure target, String seq, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, String seq, Class<? extends Structure> structure) throws Exception;
-
-    T insert(String table, Collection<Structure> targets, String seq, boolean isParallel, Class<? extends Structure> structure) throws Exception;
-
     T update(String table, Structure target, Class<? extends Structure> structure) throws Exception;
 
     T update(String sql, Object[] args, Class<? extends Structure> structure) throws Exception;
