@@ -15,5 +15,9 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Sequence {
+    /**
+     * 序列号的名称
+     * @return
+     */
     String value();
 }

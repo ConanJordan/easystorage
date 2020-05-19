@@ -11,5 +11,9 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
+    /**
+     * 字段或别名的名称
+     * @return
+     */
     String value();
 }
